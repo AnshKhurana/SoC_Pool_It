@@ -1,0 +1,66 @@
+Setting up PostgreSQL on your lab/local machine and connecting from pgadmin
+
+
+This page shows you how to get a copy of PostgreSQL running on your local machine, and how to connect to it from pgadmin3/pgadmin4 to browse the database and to issue SQL queries.
+
+On the lab machines, PostgreSQL 10.0 has been set up already.  If you want to set it up on your machine, you can do it from Ubuntu Software Center or equivalent; it's OK if you get an earlier/later version of PostgreSQL in the process, we are not using cutting edge features.  
+You can also do a source code install if you want to for any reason.   Instructions for doing so are provided separately.
+You now need to create a database and run a copy of the PostgreSQL server processes on it.  (The lab machines already have an instance of PostgreSQL running, but you don't want to use that one since you will then be locked to that machine, and get in trouble if the machine is down.  Instead, we will create a copy whose database is in your home area, and can be used from other machines).
+Open a terminal, and execute
+    cd ~
+    mkdir postgresql
+    cd postgresql
+This creates a directory where your database and other files will be located.
+Now execute
+    /usr/lib/postgresql/10/bin/initdb -D dbis
+(If you have an older version of PostgreSQL, your path may be slightly different, such as 9.5 or 9.4 instead of 9.6)
+and then edit   dbis/postgresql.conf   and
+change
+     #port = 5432
+to
+     port = xyz0
+where  xyz is 500 + the last 3 digits of your roll number.  (This is just a way to avoid clashes on ports with other students who may be running postgresql servers on the same machine; if you don't do this, your copy of PostgreSQL may try to use an already in use port and won't start.)
+ Also change
+     #unix_socket_directories = '/var/run/postgresql'
+ to
+      unix_socket_directories = '/xxx/postgresql'
+where xxx is the full path of your home directory (e.g. /users/ug17/akash/postgresql if your login is akash)
+Now start an instance of postgresql by using either of these methods:
+Either run:
+      /usr/lib/postgresql/10/bin/pg_ctl -D ~/postgresql/dbis -l logfile start
+and check the status by looking at the file logfile to make sure it has started
+(BEFORE YOU LOG OUT:  run
+      /usr/lib/postgresql/10/bin/pg_ctl -D ~/postgresql/dbis stop
+)
+OR  run
+     /usr/lib/postgresql/10/bin/postmaster -D ~/postgresql/dbis  &
+and make sure the messages show that postgresql has started properly;
+(BEFORE YOU LOG OUT kill the process to shut down postgresql)
+Once postgres is started, connect to it
+     psql -h localhost -p xyz0 -d postgres
+where xyz0 is the port number you defined earlier
+Use the help menu to figure out basic psql commands, such as \d 
+See what tables are there by typing \d
+Explore a few commands using \? and \h.  Don't spend too much time on this in the lab, you can explore more offline.
+Type in any SQL command and hit enter to execute the command. You need to end SQL commands with a semi colon.  See below for some sample SQL commands.
+Exit the shell using \q
+Run some basic SQL commands such as the following and see what happens
+create table test (i int, name varchar(20));
+insert into test values (5, 'Ram');
+insert into test values (10, 'Sita');
+select * from test;
+drop table test;
+Next startup pgadmin3 OR pgadmin4 (if you remote logged in, make sure you did ssh -X)
+   Warning: pgadmin4 starts a server and opens a tab on your browser.  This takes some time, and can cause issues if you are ssh'd in and are using firefox.  pgadmin3 does not have this problem, but has fewer features for monitoring the postgresql database.  This doesn't really matter in the initial labs, so feel free to use pgadmin3 for now, and move to pgadmin4 later on.
+Create a new connection to the database.  Use hostname as localhost, port as xyz0 as above, your login name as the user name, and leave the password blank.  
+pgadmin3: pgadmin3 will say that your version of postgresql is not supported.  Don't bother about it.
+pgadmin4: this starts up a browser window on your default browser, and runs everything from there.  If you are ssh'd in sometimes this causes issues.
+Open an SQL window and run the SQL commands mentioned earlier for psql. But don't drop the table test 
+pgadmin3: Select the database you want to use. Click on the button that says SQL
+pgadmin4: Select the database you want to use, then go to Tools > Query Tool
+
+USEFUL TIP:   You can type multiple SQL commands into the window.   If you select a particular SLQ command and then click on the green arrow, only that command will be run.  If you don't select anything, all the SQL commands will get executed.
+Try a few SQL queries to test the interface.
+Now use the menu to 
+browse the database (go down to Servers > postgresql > Databases > postgres > Schemas > public > Tables)
+Look at the table creation command, including constraints such as primary and foreign keys
