@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from accounts.models import User
 
@@ -6,12 +7,13 @@ from accounts.models import User
 #---------------------------------------------------#
 
 class service(models.Model):
+    service_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     group_id = models.ForeignKey(group, on_delete=models.CASCADE)
     service_type_id = models.ForeignKey()
-    initiator_id =
+    initiator_id = models.ForeignKey(User)
     service_desc = TextField()
     start_time = models.DateTimeField()
-    slackness = 
+    slackness = models.TimeField()
 
 class shoping(service):
 
@@ -24,15 +26,18 @@ class event(service):
 #---------------------------------------------------#
 
 class group(models.Model):
+    group_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
 class group_member(models.Model):
     room = models.ManyToManyField(group)
+    group_id = models.ForeignKey(group, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
 #---------------------------------------------------#
 
 class Message(models.Model):
     service_id = models.ForeignKey(service, on_delete=models.CASCADE)
-    user_id =  models.ForeignKey()
+    user_id =  models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
