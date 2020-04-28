@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.models import User, auth
+from django.contrib.auth.models import auth
+from .models import User
+
 
 # Create your views here.
 
@@ -35,7 +37,7 @@ def signup(request):
                 messages.info(request, 'phone number taken')
                 return redirect('signup')
             else:
-                user = User.objects.create_user(username=username, password=password1, first_name=first_name, last_name=last_name)
+                user = User.objects.create_user(username=username, password=password1, first_name=first_name, last_name=last_name, mobile=mobile)
                 user.save()
                 print('user created')
                 return redirect('/')
