@@ -14,10 +14,11 @@ def signin(request):
 
     if user is not None:
         auth.login(request, user)
-        return redirect('feed')
+        return render(request, 'home.html')
     else:
         messages.info(request, 'invalid credentials')
         return redirect('/')
+
 
 def signup(request):
 
