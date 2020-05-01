@@ -17,6 +17,10 @@
             <input class="input100" type="password" name="pass" placeholder="Password">
             <span class="focus-input100"></span>
         </div>
+
+        {% for message in messages %}
+           <p style="color: lightcoral;" class="container-login100-form-btn">{{message}}</p>
+        {% endfor %}
     
         <div class="container-login100-form-btn">
             <button class="login100-form-btn" type="submit">

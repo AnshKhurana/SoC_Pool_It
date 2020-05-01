@@ -10,9 +10,13 @@
     {% csrf_token %}
 
     <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type mobile number" style="margin-left:110px;">
-        <input id="first-name" class="input100" type="number" name="mobile" placeholder="Registered Mobile Number">
+        <input id="first-name" class="input100" type="tel" name="mobile" placeholder="Registered Mobile Number">
         <span class="focus-input100"></span>
     </div>
+
+    {% for message in messages %}
+        <p style="color: lightcoral;" class="container-login100-form-btn">{{message}}</p>
+    {% endfor %}
 
     <div class="container-login100-form-btn">
         <button class="login100-form-btn" type="submit">
