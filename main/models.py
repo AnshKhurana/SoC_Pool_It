@@ -4,43 +4,6 @@ from django.contrib.auth.models import auth
 from accounts.models import User
 # Create your models here.
 
-#---------------------------------------------------#
-
-class service(models.Model):
-    service_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    service_type_id = models.ForeignKey()
-    initiator_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    service_desc = TextField()
-    start_time = models.DateTimeField(null=True)
-    slackness = models.TimeField()
-    members = models.ManyToManyField(User,
-                                        through='service_member',
-                                        through_fields=('service_id', 'user_id'),
-                                        related_name='ServiceMember'
-                                        )
-    groups = models.ManyToManyField(group,
-                                        through='service_group',
-                                        through_fields=('service_id', 'group_id'),
-                                        related_name='group_of_service',
-                                        )
-
-    def __str__(self):
-        return self.service_desc
-
-class shoping(service):
-
-class food(service):
-
-class travel(service):
-    start_time = 
-    end_point = 
-    travel_choice = [
-
-    ]
-    transport =
-
-
-class event(service):
 
 #---------------------------------------------------#
 
@@ -63,6 +26,41 @@ class group(models.Model):
 class group_member(models.Model):
     group_id = models.ForeignKey(group, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+
+#---------------------------------------------------#
+
+class service(models.Model):
+    service_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    #service_type_id = models.ForeignKey()
+    initiator_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    service_desc = models.TextField()
+    start_time = models.DateTimeField(null=True)
+    slackness = models.TimeField()
+    members = models.ManyToManyField(User,
+                                        through='service_member',
+                                        through_fields=('service_id', 'user_id'),
+                                        related_name='ServiceMember'
+                                        )
+    groups = models.ManyToManyField(group,
+                                        through='service_group',
+                                        through_fields=('service_id', 'group_id'),
+                                        related_name='group_of_service',
+                                        )
+
+    def __str__(self):
+        return self.service_desc
+
+class shoping(service):
+    pass
+
+class food(service):
+    pass
+
+class travel(service):
+    pass
+
+class event(service):
+    pass
 
 #---------------------------------------------------#
 
