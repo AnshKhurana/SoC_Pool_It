@@ -15,11 +15,13 @@ class service(models.Model):
     slackness = models.TimeField()
     members = models.ManyToManyField(User,
                                         through='service_member',
-                                        through_fields=('service_id', 'user_id')
+                                        through_fields=('service_id', 'user_id'),
+                                        related_name='ServiceMember'
                                         )
     groups = models.ManyToManyField(group,
                                         through='service_group',
                                         through_fields=('service_id', 'group_id'),
+                                        related_name='group_of_service',
                                         )
 
     def __str__(self):
@@ -47,10 +49,15 @@ class group(models.Model):
     admin = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     members = models.ManyToManyField(User, 
                                         through='group_member', 
-                                        through_fields=('group_id', 'user_id')
+                                        through_fields=('group_id', 'user_id'),
+                                        related_name='GroupMember',
                                     )
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=1000)
+    hash = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.name}'
 
 
 class group_member(models.Model):
