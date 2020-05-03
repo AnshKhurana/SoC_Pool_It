@@ -1,1 +1,4 @@
 db.sqlite3
+accounts/__pycache__
+poolit/__pycache__
+main/__pycache__
