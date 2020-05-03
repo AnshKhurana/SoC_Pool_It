@@ -3,12 +3,15 @@ from django.contrib import messages
 from django.contrib.auth.models import auth
 from .models import User
 #from poolit.settings import EMAIL_HOST_SERVER
-from django.core.mail import send_mail
+from django.core import mail
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+import math, random
 
 
 # Create your views here.
+
+#--------------------------------------------------------#
 
 def signin(request):
     username = request.POST['username']
@@ -22,20 +25,11 @@ def signin(request):
         messages.info(request, 'invalid credentials')
         return redirect('/')
 
-def change_password(request):
-    if request.method=='POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            messages.success(request, 'Your password was successfully updated')
-            return redirect('/')
-        else:
-            messages.error(request, 'Please correct the error below')
-    else:
-        form = PasswordChangeForm(request.user)
-    return render(request, 'change_password.html', {'form':form})
+def signout(request):
+    auth.logout(request)
+    return redirect('/')
 
+#--------------------------------------------------------#
 
 def signup(request):
 
@@ -68,12 +62,46 @@ def signup(request):
     else:    
         return render(request,'signup.html')
 
-def signout(request):
-    auth.logout(request)
-    return redirect('/')
+#--------------------------------------------------------#
 
 def forgot(request):
-    pass
+    '''if request.method=='POST':
+        email = request.POST['email']
+        if User.objects.filter(email=email).exists():
+            user = User.objects.get(email=email)
+            subject = 'New password for pool-it'
+            password = generateOTP()
+            message = 'username:'+str(user.username)+'/n'+'password:'+password
+
+            mail.send_mail(
+                subject,
+                message,
+                EMAIL_HOST_SERVER,
+                [str(email)],
+                fail_silently=False,
+            )
+            if len(mail.outbox)==1
+            messages.info(request, 'an OTP is sent to your email id along with your username')
+            render('/')
+    else:'''
+        return render(request, 'forgot.html')
+
+#--------------------------------------------------------#
+
+def change_password(request):
+    if request.method=='POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated')
+            return redirect('/')
+        else:
+            messages.error(request, 'Please correct the error below')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form':form})
+
 
 def update(request):
     if request.method=='POST':
@@ -88,3 +116,20 @@ def update(request):
         return render(request, 'home.html')
     else:
         return render(request, 'update.html')
+
+#-------------------------------------------------------#
+
+# function to generate OTP 
+def generateOTP() : 
+  
+    # Declare a string variable   
+    # which stores all string  
+    string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    OTP = "" 
+    length = len(string) 
+    for i in range(6) : 
+        OTP += string[math.floor(random.random() * length)] 
+  
+    return OTP 
+
+#-------------------------------------------------------#
