@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<form class="login100-form validate-form" action="signup" method="POST">
+    <span class="login100-form-title p-b-34">
+        Obtain Password/Username
+    </span>
+
+    {% csrf_token %}
+
+    <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type mobile number" style="margin-left:110px;">
+        <input id="first-name" class="input100" type="email" name="email" placeholder="Registered Email id">
+        <span class="focus-input100"></span>
+    </div>
+
+    {% for message in messages %}
+        <p style="color: lightcoral;" class="container-login100-form-btn">{{message}}</p>
+    {% endfor %}
+
+    <div class="container-login100-form-btn">
+        <button class="login100-form-btn" type="submit">
+            Submit
+        </button>
+    </div>
+
+    <div class="w-full text-center p-t-27 p-b-239">
+       
+    </div>
+
+    <div class="w-full text-center">
+        <a href="/" class="txt3">
+            Sign In
+        </a>
+    </div>
+</form>
+
+{% endblock %}
