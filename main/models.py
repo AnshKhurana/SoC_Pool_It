@@ -10,12 +10,7 @@ from accounts.models import User
 
 class group(models.Model):
     group_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    admin = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    members = models.ManyToManyField(User, 
-                                        through='group_member', 
-                                        through_fields=('group_id', 'user_id'),
-                                        related_name='GroupMember',
-                                    )
+    admin = models.ForeignKey('User', on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=1000)
     hash = models.CharField(unique=True, default=None)
@@ -23,13 +18,19 @@ class group(models.Model):
     def __str__(self):
         return f'{self.name}'
 
-
 class group_member(models.Model):
-    group_id = models.ForeignKey(group, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    group_id = models.ForeignKey('group', on_delete=models.CASCADE)
+    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+   
+group.members = models.ManyToManyField('User', 
+                                        through='group_member', 
+                                        through_fields=('group_id', 'user_id'),
+                                        related_name='joined_groups',
+                                    )
+    
 
 #---------------------------------------------------#
-
+'''
 class service(models.Model):
     service_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     #service_type_id = models.ForeignKey()
@@ -83,5 +84,5 @@ class service_group(models.Model):
 class service_member(models.Model):
     service_id = models.ForeignKey(service, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-
+'''
 #---------------------------------------------------#
