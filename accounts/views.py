@@ -83,8 +83,8 @@ def forgot(request):
             if len(mail.outbox)==1
             messages.info(request, 'an OTP is sent to your email id along with your username')
             render('/')
-    else:'''
-        return render(request, 'forgot.html')
+        else:'''
+    return render(request, 'forgot.html')
 
 #--------------------------------------------------------#
 
