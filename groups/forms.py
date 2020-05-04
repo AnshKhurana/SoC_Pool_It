@@ -4,5 +4,5 @@ from django import forms
 class group_form (forms.ModelForm):
     
     class Meta:
-        model  group
+        model = group
         fields = ['name', 'description']

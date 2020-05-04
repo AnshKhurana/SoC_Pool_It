@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import auth
 from accounts.models import User
+
 # Create your models here.
 
 
@@ -17,7 +18,7 @@ class group(models.Model):
                                     )
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=1000)
-    hash = models.IntegerField(default=0)
+    hash = models.CharField(unique=True, default=None)
 
     def __str__(self):
         return f'{self.name}'
