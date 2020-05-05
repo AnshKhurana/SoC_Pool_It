@@ -11,8 +11,8 @@ from accounts.models import User
 
 def hash_generator():
     hash = hashlib.md5()
-    hash.update(str(random.random()))
-    return hash.hexdigest()
+    hash.update(str(random.random()).encode())
+    return hash.hexdigest()[:-10]
 
 #-------------------------------------------------------------#
 
@@ -23,7 +23,6 @@ def group_creation(request):
             
             Group = form.save(commit=False)
             Group.admin = request.user
-            Group.members.add(request.user)
             while(1):
                 hash = hash_generator()
                 if not(group.objects.filter(hash=hash).exists()):
@@ -31,9 +30,10 @@ def group_creation(request):
                     break
             Group.save()
 
-            GroupMember = group_member.objects.create(group_id=Group.group_id, user_id=request.user)
+            GroupMember = group_member.objects.create(group_id=Group, user_id=request.user)
 
             messages.info(request, 'group created')
+            return render(request, 'home.html')
         else:
             messages.info(request, 'invalid input')
             return redirect('group_creation')

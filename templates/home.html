@@ -12,11 +12,15 @@
 
     {% if user.is_authenticated %}
     <li>Hello, {{user.first_name}}</li>
-    <li><a href='signout'>Sign Out</a></li>
-    <li><a href="change_password">Change Password</a></li>
-    <li><a href="update_details">Update Details</a></li>
-    <li><a href="/groups/group_creation">Create a group</a></li>
+    <li><a href='/accounts/signout'>Sign Out</a></li>
+    <li><a href="/accounts/change_password">Change Password</a></li>
+    <li><a href="/accounts/update_details">Update Details</a></li>
+    <li><a href="/group/group_creation">Create a group</a></li>
     {% endif %}
+
+    {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor %}
 
 </body>
 </html>

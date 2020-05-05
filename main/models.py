@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import auth
-from accounts.models import User
+from django.conf import settings
 
 # Create your models here.
 
@@ -9,22 +9,21 @@ from accounts.models import User
 #---------------------------------------------------#
 
 class group(models.Model):
-    group_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    admin = models.ForeignKey('User', on_delete=models.DO_NOTHING)
+    group_id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=1000)
-    hash = models.CharField(unique=True, default=None)
+    hash = models.CharField(max_length=64,unique=True, default=None)
 
     def __str__(self):
         return f'{self.name}'
 
 class group_member(models.Model):
-    group_id = models.ForeignKey('group', on_delete=models.CASCADE)
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+    group_id = models.ForeignKey(group, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
    
-group.members = models.ManyToManyField('User', 
-                                        through='group_member', 
-                                        through_fields=('group_id', 'user_id'),
+group.members = models.ManyToManyField(settings.AUTH_USER_MODEL, 
+                                        through='group_member',
                                         related_name='joined_groups',
                                     )
     
