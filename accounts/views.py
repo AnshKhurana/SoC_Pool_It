@@ -8,7 +8,6 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 import math, random
 
-
 # Create your views here.
 
 #--------------------------------------------------------#

@@ -16,11 +16,15 @@
     <li><a href="change_password">Change Password</a></li>
     <li><a href="update_details">Update Details</a></li>
     <li><a href="group/group_creation">Create a group</a></li>
-    {% endif %}
+    <br>
+    {% for group in user.joined_groups.all %}
+        <li>{{group}}</li>
+    {% endfor %}
 
     {% for message in messages %}
     <p>{{message}}</p>
     {% endfor %}
 
+    {% endif %}
 </body>
 </html>
