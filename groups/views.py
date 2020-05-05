@@ -33,7 +33,7 @@ def group_creation(request):
             GroupMember = group_member.objects.create(group_id=Group, user_id=request.user)
 
             messages.info(request, 'group created')
-            return render(request, 'home.html')
+            return redirect('/accounts/signin')
         else:
             messages.info(request, 'invalid input')
             return redirect('group_creation')

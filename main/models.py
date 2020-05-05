@@ -18,14 +18,14 @@ class group(models.Model):
     def __str__(self):
         return f'{self.name}'
 
-class group_member(models.Model):
-    group_id = models.ForeignKey(group, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-   
-group.members = models.ManyToManyField(settings.AUTH_USER_MODEL, 
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, 
                                         through='group_member',
                                         related_name='joined_groups',
                                     )
+
+class group_member(models.Model):
+    group_id = models.ForeignKey(group, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
 
 #---------------------------------------------------#
