@@ -42,3 +42,18 @@ def group_creation(request):
         form = group_form()
         return render(request, 'group_creation.html', {'form':form})
 
+#-------------------------------------------------------------#
+
+def join_group(request):
+    code = request.POST['code']
+    grp = group.objects.get(hash=code)
+    user = request.user
+    if grp is not None:
+        if user in grp.members.all():
+            messages.error(request, 'already a member')
+        else:
+            group_member.objects.create(group_id=grp, user_id=user)
+            messages.info(request, 'joined the group')
+    else:
+        messages.error(request, 'invalid code')
+    return redirect('/accounts/signin')
