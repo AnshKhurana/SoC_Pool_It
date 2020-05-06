@@ -46,9 +46,9 @@ def group_creation(request):
 
 def join_group(request):
     code = request.POST['code']
-    grp = group.objects.get(hash=code)
-    user = request.user
-    if grp is not None:
+    if group.objects.filter(hash=code).exists():
+        grp = group.objects.get(hash=code)
+        user = request.user
         if user in grp.members.all():
             messages.error(request, 'already a member')
         else:
