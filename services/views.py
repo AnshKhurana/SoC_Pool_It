@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from accounts.models import User
+from main.models import group
 
-# Create your views here.
+	
+def groupservice(request):
+	user=request.user
+	group_list=group.objects.filter(members=user)
+	return render(request,'servicegroups.html',{'group_list':group_list})
+

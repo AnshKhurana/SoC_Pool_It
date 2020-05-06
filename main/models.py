@@ -1,15 +1,16 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import auth
-from accounts.models import User
+from django.conf import settings
+from polymorphic.models import PolymorphicModel
 # Create your models here.
 
 #---------------------------------------------------#
 
 class group(models.Model):
     group_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    admin = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    members = models.ManyToManyField(User, 
+    admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, 
                                         through='group_member', 
                                         through_fields=('group_id', 'user_id'),
                                         related_name='GroupMember',
@@ -24,7 +25,7 @@ class group(models.Model):
 
 class group_member(models.Model):
     group_id = models.ForeignKey(group, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 #---------------------------------------------------#
 
@@ -70,16 +71,15 @@ class Location(models.Model):
     def __str__(self):
         return self.address
 
-class service(models.Model):
+class service(PolymorphicModel):
     service_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    service_type_id = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    initiator_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    service_desc = models.TextField()
+    service_type = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    initiator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    service_desc = models.CharField(max_length=1000,null=False)
     start_time = models.DateTimeField(null=True)
     end_time=models.DateTimeField(null=True)
-    slackness = models.TimeField()
     is_active=models.BooleanField(default=True)
-    members = models.ManyToManyField(User,
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                         through='service_member',
                                         through_fields=('service_id', 'user_id'),
                                         related_name='ServiceMember'
@@ -99,16 +99,16 @@ class service_group(models.Model):
 
 class service_member(models.Model):
     service_id = models.ForeignKey(service, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-class ShopingService(service):
-    vendor = models.ForeignKey(Company, on_delete=models.DO_NOTHING, null=False)
+class ShoppingService(service):
+    vendor = models.CharField(max_length=1000)
 
     def __str__(self):
         return '%s' % self.vendor
 
 class FoodService(service):
-    vendor = models.ForeignKey(Restaurant, on_delete=models.DO_NOTHING, null=False)
+    vendor = models.CharField(max_length=1000)
 
     def __str__(self):
         return '%s' % self.vendor
@@ -140,7 +140,7 @@ class EventService(service):
 
 class Message(models.Model):
     service_id = models.ForeignKey(service, on_delete=models.CASCADE)
-    user_id =  models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id =  models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
@@ -149,6 +149,3 @@ class Message(models.Model):
 
 #---------------------------------------------------#
 
-
-
-#---------------------------------------------------#

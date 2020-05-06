@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Creating Service </title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+	{%if group_list %}
+	<p >Select groups to post the service:</p><br>
+		<form action=" " method="POST">
+			{%csrf_token%}
+			{% for group in group_list %}
+				<input type='checkbox' id='group{{forloop.counter}}' name='group{{forloop.counter}}' value={{group.group_id}}>
+				<label for='group{{forloop.counter}}'>{{group.name}}</label><br>
+			{%endfor%}<br><br>
+				<label for='category'>Choose a Category:</label>
+				<select id='category' name='category' required>
+					<option value='EventService'>Event</option>
+					<option value='FoodService'>Food</option>
+					<option value='ShoppingService'>Shopping</option>
+					<option value='TravelService'>Travel</option>
+				</select><br>
+				<input type="submit" value="next">
+		</form>
+	{%else%}
+	<p>You should be present in atleast one group to create a service</p>
+	{%endif%}
