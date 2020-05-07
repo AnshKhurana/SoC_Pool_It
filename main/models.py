@@ -29,7 +29,7 @@ class group_member(models.Model):
     
 
 #---------------------------------------------------#
-'''
+
 class service(models.Model):
     service_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     #service_type_id = models.ForeignKey()
@@ -83,5 +83,5 @@ class service_group(models.Model):
 class service_member(models.Model):
     service_id = models.ForeignKey(service, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-'''
+
 #---------------------------------------------------#
