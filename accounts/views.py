@@ -8,22 +8,25 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 import math, random
 
-
 # Create your views here.
 
 #--------------------------------------------------------#
 
 def signin(request):
-    username = request.POST['username']
-    password = request.POST['pass']
-    user = auth.authenticate(username=username, password=password)
+    if request.method=='POST':
+        username = request.POST['username']
+        password = request.POST['pass']
+        user = auth.authenticate(username=username, password=password)
 
-    if user is not None:
-        auth.login(request, user)
-        return render(request, 'home.html')
+        if user is not None:
+            auth.login(request, user)
+            return render(request, 'home.html')
+        else:
+            messages.info(request, 'invalid credentials')
+            return redirect('/')
+
     else:
-        messages.info(request, 'invalid credentials')
-        return redirect('/')
+        return render(request, 'home.html')
 
 def signout(request):
     auth.logout(request)
@@ -84,7 +87,7 @@ def forgot(request):
             messages.info(request, 'an OTP is sent to your email id along with your username')
             render('/')
     else:'''
-        return render(request, 'forgot.html')
+    return render(request, 'forgot.html')
 
 #--------------------------------------------------------#
 
@@ -113,7 +116,7 @@ def update(request):
         user.first_name = first_name
         user.username = username
         user.save()
-        return render(request, 'home.html')
+        return redirect('/accounts/signin')
     else:
         return render(request, 'update.html')
 
