@@ -50,9 +50,9 @@ def createservice(request):
 			form=FoodServiceForm(request.POST)
 			if form.is_valid():
 				Service=form.save(commit=False)
+				Service.start_time=timezone.now()
 				Service.service_type=Category.objects.get(name='Food')
 				Service.initiator=request.user
-				Service.start_time=timezone.now()
 				Service.save()
 				groups_ids=request.session['servicegroups']
 				Service.members.add(request.user)
@@ -64,7 +64,7 @@ def createservice(request):
 					sg=service_group(service=Service,group=Group)
 					sg.save()
 					
-				messages.info(request,'Successfully created a Service')
+				messages.success(request,'Successfully created a Service')
 				return redirect('/accounts/signin')
 			else:
 				return render(request,'ServiceForm.html',{'form':form,'name':'Food '})
@@ -72,10 +72,10 @@ def createservice(request):
 		elif request.session['category']=='Event':
 			form=EventServiceForm(request.POST)
 			if form.is_valid():
-				service=form.save(commit=False)
+				Service=form.save(commit=False)
+				Service.start_time=timezone.now()
 				Service.service_type=Category.objects.get(name='Event')
 				Service.initiator=request.user
-				Service.start_time=timezone.now()
 				Service.save()
 				groups_ids=request.session['servicegroups']
 				Service.members.add(request.user)
@@ -87,7 +87,7 @@ def createservice(request):
 					sg=service_group(service=Service,group=Group)
 					sg.save()
 					
-				messages.info(request,'Successfully created a Service')
+				messages.success(request,'Successfully created a Service')
 				return redirect('/accounts/signin')
 			else:
 				return render(request,'ServiceForm.html',{'form':form,'name':'Event '})
@@ -95,10 +95,10 @@ def createservice(request):
 		elif request.session['category']=='Shopping':
 			form=ShoppingServiceForm(request.POST)
 			if form.is_valid():
-				service=form.save(commit=False)
+				Service=form.save(commit=False)
+				Service.start_time=timezone.now()
 				Service.service_type=Category.objects.get(name='Shopping')
 				Service.initiator=request.user
-				Service.start_time=timezone.now()
 				Service.save()
 				groups_ids=request.session['servicegroups']
 				Service.members.add(request.user)
@@ -110,7 +110,7 @@ def createservice(request):
 					sg=service_group(service=Service,group=Group)
 					sg.save()
 					
-				messages.info(request,'Successfully created a Service')
+				messages.success(request,'Successfully created a Service')
 				return redirect('/accounts/signin')
 			else:
 				return render(request,'ServiceForm.html',{'form':form,'name':'Shopping '})
@@ -118,9 +118,10 @@ def createservice(request):
 		elif request.session['category']=='Travel':
 			form=TravelServiceForm(request.POST)
 			if form.is_valid():
+				Service=form.save(commit=False)
+				Service.start_time=timezone.now()
 				Service.service_type=Category.objects.get(name='Travel')
 				Service.initiator=request.user
-				Service.start_time=timezone.now()
 				Service.save()
 				groups_ids=request.session['servicegroups']
 				Service.members.add(request.user)
@@ -132,7 +133,7 @@ def createservice(request):
 					sg=service_group(service=Service,group=Group)
 					sg.save()
 					
-				messages.info(request,'Successfully created a Service')
+				messages.success(request,'Successfully created a Service')
 				return redirect('/accounts/signin')
 			else:
 				return render(request,'ServiceForm.html',{'form':form,'name':'Travel '})
@@ -140,10 +141,10 @@ def createservice(request):
 		else:
 			form=OtherServiceForm(request.POST)
 			if form.is_valid():
-				service=form.save(commit=False)
+				Service=form.save(commit=False)
+				Service.start_time=timezone.now()
 				Service.service_type=Category.objects.get(name='Other')
 				Service.initiator=request.user
-				Service.start_time=timezone.now()
 				Service.save()
 				groups_ids=request.session['servicegroups']
 				Service.members.add(request.user)
@@ -155,7 +156,7 @@ def createservice(request):
 					sg=service_group(service=Service,group=Group)
 					sg.save()
 					
-				messages.info(request,'Successfully created a Service')
+				messages.success(request,'Successfully created a Service')
 				return redirect('/accounts/signin')
 			else:
 				return render(request,'ServiceForm.html',{'form':form,'name':' '})

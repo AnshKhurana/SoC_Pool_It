@@ -26,11 +26,11 @@ class FoodServiceForm(forms.ModelForm):
 
 	class Meta:
 		model=FoodService
-		fields=['service_desc','end_time','vendor']
+		fields=['service_desc','vendor','end_time']
 		widgets={
 			'service_desc':forms.Textarea(attrs={'placeholder':'Describe about the service'}),
 			'vendor':forms.Textarea(attrs={'placeholder':'Describe about the vendor/ place/ etc'}),
-			'end_time':forms.DateTimeInput(attrs={'placeholder':'eg.; 30-01-2020 14:30'},format = '%d-%b-%y %H:%M:%S %Z')
+			'end_time':forms.DateTimeInput(attrs={'placeholder':'eg.; 2020-06-24 14:30 '})
 		}
 
 		labels={
@@ -51,11 +51,11 @@ class ShoppingServiceForm(forms.ModelForm):
 	
 	class Meta:
 		model=ShoppingService
-		fields=['service_desc','end_time','vendor']
+		fields=['service_desc','vendor','end_time']
 		widgets={
 			'service_desc':forms.Textarea(attrs={'placeholder':'Describe about the service'}),
 			'vendor':forms.Textarea(attrs={'placeholder':'Describe the service'}),
-			'end_time':forms.DateTimeInput(attrs={'placeholder':'eg.; 30-01-2020 14:30 '},format = '%d-%b-%y %H:%M:%S %Z')
+			'end_time':forms.DateTimeInput(attrs={'placeholder':'eg.; 2020-06-24 14:30 '})
 		}
 
 		labels={
@@ -74,11 +74,11 @@ class EventServiceForm(forms.ModelForm):
 	
 	class Meta:
 		model=EventService
-		fields=['event_type','location','end_time','service_desc']
+		fields=['event_type','location','service_desc','end_time']
 		widgets={
 			'service_desc':forms.Textarea(attrs={'placeholder':'Describe about the service'}),
 			'location':forms.Textarea(attrs={'placeholder':'Add the location of Event'}),
-			'end_time':forms.DateTimeInput(attrs={'placeholder':'eg.; 30-01-2020 23:45:36 '},format = '%d-%b-%y %H:%M:%S %Z')
+			'end_time':forms.DateTimeInput(attrs={'placeholder':'eg.; 2020-06-24 14:30 '})
 		}
 
 		labels={
@@ -96,12 +96,12 @@ class TravelServiceForm(forms.ModelForm):
 	
 	class Meta:
 		model=TravelService
-		fields=['start_point','end_point','transport','end_time','service_desc']
+		fields=['transport','start_point','end_point','service_desc','end_time']
 		widgets={
 			'service_desc':forms.Textarea(attrs={'placeholder':'Describe about the service'}),
 			'start_point':forms.Textarea(attrs={'placeholder':'Starting point address'}),
 			'end_point':forms.Textarea(attrs={'placeholder':'Ending point address'}),
-			'end_time':forms.DateTimeInput(attrs={'placeholder':'eg.; 30-01-2020 23:45:36 '},format = '%d-%b-%y %H:%M:%S %Z')
+			'end_time':forms.DateTimeInput(attrs={'placeholder':'eg.; 2020-06-24 14:30 '})
 		}
 		
 		labels={
@@ -120,10 +120,10 @@ class OtherServiceForm(forms.ModelForm):
 	
 	class Meta:
 		model=OtherService
-		fields=['end_time','service_desc']
+		fields=['service_desc','end_time']
 		widgets={
 			'service_desc':forms.Textarea(attrs={'placeholder':'Describe about the service'}),
-			'end_time':forms.DateTimeInput(attrs={'placeholder':'eg.; 30-01-2020 23:45:36 '},format = '%d-%b-%y %H:%M:%S %Z')
+			'end_time':forms.DateTimeInput(attrs={'placeholder':'eg.; 2020-06-24 14:30 '})
 		}
 
 		labels={

@@ -88,7 +88,6 @@ class EventService(service):
     EVENT_CHOICES = [
         ('Movie', 'Movie'),
         ('Concert', 'Concert'),
-        ('Other','Other'),
     ]
     location = models.CharField(null=False, max_length=1000)
     event_type = models.CharField(max_length=10, choices=EVENT_CHOICES)
