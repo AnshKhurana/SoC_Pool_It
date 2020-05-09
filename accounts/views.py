@@ -14,16 +14,20 @@ import math, random
 #--------------------------------------------------------#
 
 def signin(request):
-    username = request.POST['username']
-    password = request.POST['pass']
-    user = auth.authenticate(username=username, password=password)
+    if request.method=='POST':
+        username = request.POST['username']
+        password = request.POST['pass']
+        user = auth.authenticate(username=username, password=password)
 
-    if user is not None:
-        auth.login(request, user)
-        return render(request, 'home.html')
+        if user is not None:
+            auth.login(request, user)
+            return render(request, 'home.html')
+        else:
+            messages.info(request, 'invalid credentials')
+            return redirect('/')
+
     else:
-        messages.info(request, 'invalid credentials')
-        return redirect('/')
+        return render(request, 'home.html')
 
 def signout(request):
     auth.logout(request)

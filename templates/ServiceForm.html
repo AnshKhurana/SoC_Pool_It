@@ -7,12 +7,11 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
-	<h1>Creating a Service</h1><br><br>
-	<form action="/services/servicegroups/" method='POST'>
+	<h1>Creating a {{name}}Service</h1><br><br>
+	<form method='POST' action="/services/createservice/">
 		{% csrf_token %}
 		{{form.as_p}}
-		<br>
-	<input type='submit' value='next'>
-	</form>
+		<input type='submit' value='create service'>
+	</form>		
 </body>
-</html>	
+</html>

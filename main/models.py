@@ -35,41 +35,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Restaurant(models.Model):
-    name = models.CharField(null=False, max_length=1000)
-    price = models.FloatField(null=True)
-    cusine_category = models.CharField(null=True, max_length=500)
-    city = models.CharField(null=True, max_length=100)
-    region = models.CharField(null=True, max_length=100)
-    url = models.URLField(null=True)
-#    page_no = models.IntegerField(null=True)
-    cusine_type = models.CharField(null=True, max_length=100)
-    timing = models.CharField(null=True, max_length=100)
-#    rating = models.CharField(null=True, max_length=100)
-#    votes = models.CharField(null=True, max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
-class Company(models.Model):
-    name = models.CharField(null=False, max_length=1000)
-    domain = models.CharField(max_length=100)
-    logo = models.URLField(null=True)
-    timestamp = models.DateTimeField(null=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Location(models.Model):
-    latitude = models.DecimalField(null=False, max_digits=10, decimal_places=7)
-    longitude = models.DecimalField(null=False, max_digits=10, decimal_places=7)
-    address = models.CharField(default='', max_length=1000)
-    timestamp = models.DateTimeField(null=False)
-
-    def __str__(self):
-        return self.address
 
 class service(PolymorphicModel):
     service_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -81,25 +46,18 @@ class service(PolymorphicModel):
     is_active=models.BooleanField(default=True)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                         through='service_member',
-                                        through_fields=('service_id', 'user_id'),
+                                        through_fields=('service', 'user'),
                                         related_name='ServiceMember'
                                         )
     groups = models.ManyToManyField(group,
                                         through='service_group',
-                                        through_fields=('service_id', 'group_id'),
+                                        through_fields=('service', 'group'),
                                         related_name='group_of_service',
                                         )
 
     def __str__(self):
         return self.service_desc
 
-class service_group(models.Model):
-    service_id = models.ForeignKey(service, on_delete=models.CASCADE)
-    group_id = models.ForeignKey(group, on_delete=models.CASCADE)
-
-class service_member(models.Model):
-    service_id = models.ForeignKey(service, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 class ShoppingService(service):
     vendor = models.CharField(max_length=1000)
@@ -114,8 +72,8 @@ class FoodService(service):
         return '%s' % self.vendor
 
 class TravelService(service):
-    start_point = models.ForeignKey(Location, on_delete=models.DO_NOTHING, null=False, related_name='start_loc')
-    end_point = models.ForeignKey(Location, on_delete=models.DO_NOTHING, null=False, related_name='end_loc')
+    start_point = models.CharField(max_length=1000, null=False)
+    end_point = models.CharField(max_length=1000, null=False)
     TRAVEL_CHOICES = [
         ('Taxi', 'Taxi'),
         ('Train', 'Train'),
@@ -130,13 +88,15 @@ class EventService(service):
     EVENT_CHOICES = [
         ('Movie', 'Movie'),
         ('Concert', 'Concert'),
+        ('Other','Other'),
     ]
     location = models.CharField(null=False, max_length=1000)
     event_type = models.CharField(max_length=10, choices=EVENT_CHOICES)
 
+class OtherService(service):
+    pass
+
 #---------------------------------------------------#
-
-
 
 class Message(models.Model):
     service_id = models.ForeignKey(service, on_delete=models.CASCADE)
@@ -149,3 +109,13 @@ class Message(models.Model):
 
 #---------------------------------------------------#
 
+class service_group(models.Model):
+    service = models.ForeignKey(service, on_delete=models.CASCADE)
+    group = models.ForeignKey(group, on_delete=models.CASCADE)
+
+
+class service_member(models.Model):
+    service = models.ForeignKey(service, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+#---------------------------------------------------#
