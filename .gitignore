@@ -6,3 +6,4 @@ groups/__pycache__
 accounts/migrations/__pycache__
 groups/migrations/__pycache__
 main/migrations/__pycache__
+*__pycache__*
