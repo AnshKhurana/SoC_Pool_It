@@ -15,6 +15,7 @@
     <li><a href='signout'>Sign Out</a></li>
     <li><a href="change_password">Change Password</a></li>
     <li><a href="update_details">Update Details</a></li>
+    <li><a href="/services/servicegroups">create new service</a></li>
     <li><a href="group/group_creation">Create a group</a></li>
     <br>
     {% for group in user.joined_groups.all %}
@@ -29,10 +30,9 @@
     {% for message in messages %}
     <p>{{message}}</p>
     {% endfor %}
-
-    <form action="group/join_group" method="POST">
+     <form action="group/join_group" method="POST">
         {% csrf_token %}
-        <input name="code" type="text" placeholder="Invitation Code">
+        <input name="code" type="text" placeholder="Invitation Code"><br>
         <button type="submit">
             Join
         </button>
