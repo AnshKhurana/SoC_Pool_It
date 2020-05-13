@@ -2,3 +2,8 @@ db.sqlite3
 accounts/__pycache__
 poolit/__pycache__
 main/__pycache__
+services/__pycache__
+accounts/migrations/__pycache__
+main/migrations/__pycache__
+services/migrations/__pycache__
+*__pycache__*
