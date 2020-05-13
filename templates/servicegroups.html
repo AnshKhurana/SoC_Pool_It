@@ -8,11 +8,15 @@
 </head>
 <body>
 	<h1>Creating a Service</h1><br><br>
-	<form action="/services/servicegroups/" method='POST'>
-		{% csrf_token %}
-		{{form.as_p}}
-		<br>
-	<input type='submit' value='next'>
-	</form>
+	{%if error_message%}
+		<h2>{{error_message}}</h2>
+	{%else%}
+		<form action="/services/servicegroups/" method='POST'>
+			{% csrf_token %}
+			{{form.as_p}}
+			<br>
+		<input type='submit' value='next'>
+		</form>
+	{%endif%}
 </body>
 </html>	
