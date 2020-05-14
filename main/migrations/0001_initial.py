@@ -32,7 +32,6 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(max_length=1000)),
                 ('hash', models.CharField(max_length=64,unique=True, default=None)),
                 ('admin', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to=settings.AUTH_USER_MODEL)),
-                ('members',models.ManyToManyField(related_name='joined_groups', through='main.group_member', to=settings.AUTH_USER_MODEL)),
             ],
         ),
 
