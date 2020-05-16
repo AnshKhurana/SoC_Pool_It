@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'groups.apps.GroupsConfig',
     'services.apps.ServicesConfig',
     'accounts.apps.AccountsConfig',
@@ -136,3 +137,13 @@ AUTH_USER_MODEL = 'accounts.User'
 #EMAIL_PORT = 587
 #EMAIL_USE_TLS = True
 #EMAIL_USE_SSL = False
+
+#REST_FRAMEWORK = {
+ ##
+ #      'rest_framework.authentication.BasicAuthentication',
+  #  ]
+
+ #   'DEFAULT_PERMISSION_CLASSES': [
+ #       'rest_framework.permissions.IsAuthenticated',
+  #  ]
+#}

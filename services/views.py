@@ -33,7 +33,7 @@ def servicegroups(request):
 				return render(request,'ServiceForm.html',{'form':TravelServiceForm(),'name':'Travel'})
 
 			else:
-
+				request.session['category']='Other'
 				return render(request,'ServiceForm.html',{'form':OtherServiceForm(),'name':' '})
 
 		else:
