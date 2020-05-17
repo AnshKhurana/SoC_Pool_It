@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <form action="/chat/create" method="POST">
+    <form  method="POST">
         {% csrf_token %}
         {{form.as_p}}
         <button type="submit">Send</button>
