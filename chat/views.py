@@ -12,14 +12,11 @@ def create_message_view(request,s_id = '0'):
     qs = Message1.objects.all()
     if request.method=='POST':
         if form.is_valid():
-            print("please")
             message = form.save(commit=False)
             message.user = request.user
             message.service = get_object_or_404(service , service_id = s_id)
-            print(message.user)
             message.timestamp = timezone.now()
             message.save()
-            print(message.timestamp)
             qs = Message1.objects.all()
             form = ChatForm()
     return render (request,'message_create.html',{"form" : form,"obj_list": qs })
