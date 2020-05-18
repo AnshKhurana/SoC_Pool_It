@@ -5,6 +5,7 @@ from chat.forms import ChatForm
 from django.utils import timezone
 from main.models import service
 from django.http import HttpResponse
+from django.utils import timezone
 
 # Create your views here.
 def create_message_view(request,s_id ):
@@ -18,11 +19,11 @@ def create_message_view(request,s_id ):
         message = form.save(commit=False)
         message.user = request.user
         message.service = service_obj
-        message.timestamp = timezone.now()
+        message.timestamp = timezone.localtime(timezone.now())
         message.save()
         print(qs)
         form = ChatForm()
-        str ='/chat/'+s_id+'/create'
+        str ='/chat/'+ s_id +'/create'
         return redirect(str)
         
             
