@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Message1
+from main.models import Message
 from accounts.models import User
 from chat.forms import ChatForm
 from django.utils import timezone
@@ -10,7 +10,7 @@ from django.http import HttpResponse
 def create_message_view(request,s_id ):
     form_class = ChatForm
     form = form_class(request.POST or None)
-    qs = Message1.objects.all()
+    qs = Message.objects.all()
     service_obj = get_object_or_404(service , service_id = s_id)
 
     if request.method=='POST':
@@ -28,7 +28,7 @@ def create_message_view(request,s_id ):
             
     else:
         if request.user in service_obj.members.all():
-            qs = Message1.objects.filter(service = service_obj)
+            qs = Message.objects.filter(service = service_obj)
             return render (request,'message_create.html',{"form" : form,"obj_list": qs })
         else:
             return HttpResponse ('You have to be a member of the service to join the chat')

@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import Message1
+from main.models import Message
 from accounts.models import User
 
 
@@ -8,5 +8,5 @@ from accounts.models import User
 class ChatForm(forms.ModelForm):
 
 	class Meta:
-		model=Message1
+		model=Message
 		fields=['content']
