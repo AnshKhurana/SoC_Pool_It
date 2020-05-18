@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Services available</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/service.css' %}">
+    <script src="{% static 'js/service.js' %}"></script>
+</head>
+<body>
+    
+    <div class="filter">
+        <h2 class='filter_heading'>Groups</h2>
+        {% for group in user.joined_groups.all %}
+            <div class='checkbox'>
+                <label><input type="checkbox" onchange=""/>{{group}}</label>
+            </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

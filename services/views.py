@@ -164,3 +164,5 @@ def createservice(request):
 			else:
 				return render(request,'ServiceForm.html',{'form':form,'name':' '})
 
+def services_available(request):
+	return render(request, 'services_available.html')
