@@ -1,12 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Group Creation</title>
+    <title>Chat Room</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+    
+   
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/color.css' %}">
+    
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 <body>
     <div class="theme-layout">
@@ -14,9 +19,9 @@
             <div class="row merged">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="login-reg-bg show">
-                        <div class="log-reg-area reg">
+                        <div class="log-reg-area reg" style = " color :rgb() ; ” >predict(w , b , X_test)
                             {% for object in obj_list %}
-                            <h2 class="log-title">{{object.user}}</h2>
+                            <h2 class="log-title" >{{object.user}}</h2>
                             <h3 class="log-title">{{object.timestamp}}</h3>
             
                                 <div >
