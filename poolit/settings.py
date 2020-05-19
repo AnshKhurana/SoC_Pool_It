@@ -138,12 +138,12 @@ AUTH_USER_MODEL = 'accounts.User'
 #EMAIL_USE_TLS = True
 #EMAIL_USE_SSL = False
 
-#REST_FRAMEWORK = {
- ##
- #      'rest_framework.authentication.BasicAuthentication',
-  #  ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+                'rest_framework.authentication.BasicAuthentication',
+                ),
 
- #   'DEFAULT_PERMISSION_CLASSES': [
- #       'rest_framework.permissions.IsAuthenticated',
-  #  ]
-#}
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
