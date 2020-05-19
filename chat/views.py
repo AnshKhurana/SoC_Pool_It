@@ -13,9 +13,7 @@ def create_message_view(request,s_id ):
     form = form_class(request.POST or None)
     qs = Message.objects.all()
     service_obj = get_object_or_404(service , service_id = s_id)
-    r1 = request.user.rn1
-    r2 = request.user.rn2
-    r3 = request.user.rn3
+    
     if request.method=='POST':
         
         message = form.save(commit=False)
@@ -32,7 +30,7 @@ def create_message_view(request,s_id ):
     else:
         if request.user in service_obj.members.all():
             qs = Message.objects.filter(service = service_obj)
-            return render (request,'message_create.html',{"form" : form,"obj_list": qs,"r1":r1,"r2":r2,"r3":r3 })
+            return render (request,'message_create.html',{"form" : form,"obj_list": qs})
         else:
             return HttpResponse ('You have to be a member of the service to join the chat')
 
