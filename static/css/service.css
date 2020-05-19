@@ -1,0 +1,70 @@
+#topbar{
+    position: fixed;
+    width: 100%;
+    height: 3%;
+    text-align: center;
+    background-color: whitesmoke;
+}
+
+#sidebar{
+    top: 5%;
+    position: fixed;
+    width: 25%;
+    height: 80%;
+    background: lightgray;
+    border: solid paleturquoise 1%;
+    border-radius: 4px;
+}
+
+
+.filter{
+    margin: 6%;
+    background-color: whitesmoke;
+    padding: 1%;
+    padding-left: 1.5%;
+    border: dotted aliceblue 0.2%;
+    border-radius: 3px;
+    height: 27%;
+}
+
+#groups{
+    height: 65%;
+    overflow: auto;
+}
+
+.filter_heading{
+    color: lightseagreen;
+    text-decoration: underline;
+}
+
+.checkbox{
+    color: rosybrown;
+}
+
+#main{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    bottom: 5%;
+    left: 30%;
+    background: lightgray;
+    border-radius: 4px;
+}
+
+html{
+    background-color: azure;
+}
+
+#myInput{
+    margin-top: 0.5%;
+    width: 80%;
+    height: 75%;
+    border: none;
+    background-color: paleturquoise;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#from, #until{
+    width: 95%;
+}

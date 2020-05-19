@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from main.models import group,Category,service_group,service_member			
+from main.models import group,Category,service_group,service_member, service			
 from services.forms import groupsform,FoodServiceForm,EventServiceForm,TravelServiceForm,ShoppingServiceForm,OtherServiceForm
 from django.utils import timezone
 from django.contrib import messages
@@ -165,4 +165,9 @@ def createservice(request):
 				return render(request,'ServiceForm.html',{'form':form,'name':' '})
 
 def services_available(request):
-	return render(request, 'services_available.html')
+	Groups = [ group for group in request.user.joined_groups.all() ]
+	Services = []
+	for sr in service.objects.all():
+		if set(sr.groups.all()) & set(Groups):
+			Services += [sr]
+	return render(request, 'services_available.html', {'services':Services})

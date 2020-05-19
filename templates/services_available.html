@@ -12,13 +12,64 @@
 </head>
 <body>
     
+    <div id='topbar'>
+    <input type="text" id='myInput' onkeyup="" placeholder="Search for services..">
+    <hr>
+    </div>
+
+    <div id="sidebar">
+
     <div class="filter">
         <h2 class='filter_heading'>Groups</h2>
+        <div id='groups'>
         {% for group in user.joined_groups.all %}
             <div class='checkbox'>
                 <label><input type="checkbox" onchange=""/>{{group}}</label>
             </div>
         {% endfor %}
+        </div>
+    </div>
+
+    <div class="filter">
+        <h2 class='filter_heading'>Category</h2>
+        <div class='checkbox'>
+            <label><input type="checkbox" onchange=""/>Shopping</label>
+        </div>
+        <div class='checkbox'>
+            <label><input type="checkbox" onchange=""/>Food</label>
+        </div>
+        <div class='checkbox'>
+            <label><input type="checkbox" onchange=""/>Travel</label>
+        </div>
+        <div class='checkbox'>
+            <label><input type="checkbox" onchange=""/>Event</label>
+        </div>
+        <div class='checkbox'>
+            <label><input type="checkbox" onchange=""/>Others</label>
+        </div>
+    </div>
+
+    <div class="filter">
+        <h2 class='filter_heading'>Interested Period</h2>
+        <label for='start_date'>From:<br>
+            <input type="datetime-local" id="from" name='from' onchange="">
+        </label>
+        <br>
+        <label for='end_date'>Until:<br>
+            <input type="datetime-local" id="until" name='until' onchange="">
+        </label>
+    </div>
+
+    </div>
+
+    <div id="main">
+
+    <ul class="middle" id="services_available">
+        {% for service in services %}
+            <li class='service'>{{service.service_desc}}, {{service.service_type}}</li>
+        {% endfor %}
+    </ul>
+
     </div>
 
 </body>
