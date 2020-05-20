@@ -58,6 +58,8 @@
         <label for='end_date'>Until:<br>
             <input type="datetime-local" id="until" name='until' onchange="">
         </label>
+        <br><br>
+        <button class="date_search" onclick="">Find Services</button>
     </div>
 
     </div>
@@ -66,7 +68,38 @@
 
     <ul class="middle" id="services_available">
         {% for service in services %}
-            <li class='service'>{{service.service_desc}}, {{service.service_type}}</li>
+            <li class='service'>
+                <h3>{{service.service_type}} Service</h3>
+                <button>
+                    {% if user in service.members.all %}
+                        Already A Member
+                    {% else %}
+                        Join
+                    {% endif %}
+                </button> 
+                <h3>
+                    {% if service.service_type.name == 'Food' or service.service_type.name == 'Shopping' %}
+                        {{service.vendor}}
+                    {% elif service.service_type.name == 'Travel' %}
+                        {{service.start_point}}->{{service.end_point}}
+                        <br>
+                        <h5>Via {{service.transport}}</h5>
+                    {% elif service.service_type.name == 'Event' %}
+                        {{service.event_type}}
+                        <br>
+                        <h5>At {{service.location}}</h5>
+                    {% else %}
+                        Other service
+                    {% endif %}
+                </h3>
+                <cite>by {{service.initiator.first_name}} {{service.initiator.last_name}}</cite>
+                <br><br>
+                <span>Start Time: {{service.start_time}}</span><br>
+                <span>End Time: {{service.end_time}}</span><br>
+                <p>
+                    {{service.service_desc}}
+                </p>
+            </li>
         {% endfor %}
     </ul>
 
