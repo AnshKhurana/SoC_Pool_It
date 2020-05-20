@@ -1,12 +1,13 @@
 function create_message() {
     console.log("create post is working!") // sanity check
     $.ajax({
-        url : "", // the endpoint
+        url : "create", // the endpoint
         type : "POST", // http method
         data : { msg : $('#post-message').val() }, // data sent with the post request
-
+        
         // handle a successful response
         success : function(json) {
+            
             $('#post-message').val(''); // remove the value from the input
             console.log(json); // log the returned json to the console
             $("#talk").prepend("<li><strong>"+json.content+"</strong> - <em> "+json.user+"</em> - <span> "+json.timestamp+"</span></li>");
