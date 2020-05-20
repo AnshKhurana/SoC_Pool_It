@@ -3,81 +3,16 @@ from services.forms import groupsform,FoodServiceForm,EventServiceForm,TravelSer
 from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import render,get_list_or_404,redirect
-from rest_framework import generics,mixins,permissions,authentication
+from rest_framework import generics,mixins,permissions,authentication,filters
 from rest_framework.response import Response
 from .serializers import serviceserializer
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 
-'''class MultipleFieldLookupMixin(object):
+class servicefilterview(mixins.UpdateModelMixin,generics.ListAPIView):
 
-	def get_queryset(self):
-		queryset=services.objects.filter(members=self.request.user)
-		queryset=self.filter_queryset(queryset)
-		filter={}
-		for field in many_lookup_fields:
-			if self.kwargs[field]:
-				filter[field]=self.kwargs[field]
-		obj_list=get_list_or_404(queryset,**filter)'''
-		
-
-'''class servicefilterview(generics.ListAPIView):
-
-	serializer_class       = ['serviceserializer']
-	permission_classes     = [IsAuthenticated]
-	authentication_classes = [BasicAuthentication]
-	 
-	def get_queryset(self):
-		user=self.request.user
-		Service=self.kwargs['service']
-		queryset=service.objects.filter(members=self.request.user).filter(service_type__name=Service)
-		return queryset
-
-	def list(self,request,**kwargs):
-		queryset=self.get_queryset()
-		serializer=serviceserializer(queryset,many=True)
-		return Response(serializer.data)
-
-class groupsfilterview(generics.ListAPIView):
-	serializer_class       = ['serviceserializer']
-	permission_classes     = [IsAuthenticated]
-	authentication_classes = [BasicAuthentication]
-	 
-	def get_queryset(self):
-		user=self.request.user
-		Groups=self.kwargs['groups']
-		queryset=service.objects.filter(members=self.request.user).filter(groups__group_id__in=Groups)
-		return queryset
-
-	def list(self,request,**kwargs):
-		queryset=self.get_queryset()
-
-		serializer=serviceserializer(queryset,many=True)
-		return Response(serializer.data)
-
-class timefilterview(generics.ListAPIView):
-
-	serializer_class       = ['serviceserializer']
-	permission_classes     = [IsAuthenticated]
-	authentication_classes = [BasicAuthentication]
-	 
-	def get_queryset(self):
-		user=self.request.user
-		start_time=self.kwargs['start_time']
-		end_time=self.kwargs['end_time']
-		queryset=service.objects.filter(members=self.request.user).filter(service_type__name=Service)
-		return queryset
-
-	def list(self,request,**kwargs):
-		queryset=self.get_queryset()
-		serializer=serviceserializer(queryset,many=True)
-		return Response(serializer.data)'''
-
-
-class servicefilterview(generics.ListAPIView):
-
-	serializer_class       =['serviceserializer']
+	serializer_class       =serviceserializer
 	authentication_classes =[BasicAuthentication]
 	permission_classes     =[IsAuthenticated]
 	
@@ -89,21 +24,63 @@ class servicefilterview(generics.ListAPIView):
 		Groups=self.request.query_params.get('groups',None)
 		
 		queryset=service.objects.filter(members=self.request.user)
+		
 		if Service:
 			queryset=queryset.filter(service_type__name=Service)
+		
 		if Groups:
-			queryset=queryset.filter(groups__name__in=Groups)
+			Groups=''.join(Groups.split(' ')).split(',')
+			queryset=queryset.filter(groups__group_id__in=Groups)
 			queryset=queryset.distinct()
+		
 		if Start_time:
 			queryset=queryset.filter(start_time__gte=Start_time)
+		
 		if End_time:
 			queryset=queryset.filter(end_time__lte=End_time)
+		
+		queryset=queryset.distinct()
 		return queryset
 
-	def list(self,request,**kwargs):
-		queryset=self.get_queryset()
-		serializer=serviceserializer(queryset,many=True)
-		return Response(serializer.data)
+	
+	def put(self,request,*args,**kwargs):
+			self.update(request,*args,**kwargs)
+
+	
+class searchview(generics.ListAPIView):
+	serializer_class       =serviceserializer
+	authentication_classes =[BasicAuthentication]
+	permission_classes     =[IsAuthenticated]
+	filter_backends        = [filters.SearchFilter]
+	search_fields          = ['^service_desc','^initiator__username']
+
+	
+	def get_queryset(self):
+		
+		Service=self.request.query_params.get('service',None)
+		Start_time=self.request.query_params.get('start_time',None)
+		End_time=self.request.query_params.get('end_time',None)
+		Groups=self.request.query_params.get('groups',None)
+		
+		queryset=service.objects.filter(members=self.request.user)
+		
+		if Service:
+			queryset=queryset.filter(service_type__name=Service)
+		
+		if Groups:
+			Groups=''.join(Groups.split(' ')).split(',')
+			queryset=queryset.filter(groups__group_id__in=Groups)
+			queryset=queryset.distinct()
+		
+		if Start_time:
+			queryset=queryset.filter(start_time__gte=Start_time)
+		
+		if End_time:
+			queryset=queryset.filter(end_time__lte=End_time)
+		
+		queryset=queryset.distinct()
+		return queryset
+
 
 
 
@@ -160,14 +137,11 @@ def createservice(request):
 				Service.initiator=request.user
 				Service.save()
 				groups_ids=request.session['servicegroups']
-				Service.members.add(request.user)
 				sm=service_member(service=Service,user=request.user)
 				sm.save()
 				print(Service.members)
 				for ID in groups_ids:
 					Group=group.objects.get(pk=ID)
-					Service.groups.add(Group)
-					print(Service.groups)
 					sg=service_group(service=Service,group=Group)
 					sg.save()
 					
@@ -185,12 +159,10 @@ def createservice(request):
 				Service.initiator=request.user
 				Service.save()
 				groups_ids=request.session['servicegroups']
-				Service.members.add(request.user)
 				sm=service_member(service=Service,user=request.user)
 				sm.save()
 				for id in groups_ids:
 					Group=group.objects.get(pk=id)
-					Service.groups.add(Group)
 					sg=service_group(service=Service,group=Group)
 					sg.save()
 					
@@ -208,12 +180,10 @@ def createservice(request):
 				Service.initiator=request.user
 				Service.save()
 				groups_ids=request.session['servicegroups']
-				Service.members.add(request.user)
 				sm=service_member(service=Service,user=request.user)
 				sm.save()
 				for id in groups_ids:
 					Group=group.objects.get(pk=id)
-					Service.groups.add(Group)
 					sg=service_group(service=Service,group=Group)
 					sg.save()
 					
@@ -231,12 +201,10 @@ def createservice(request):
 				Service.initiator=request.user
 				Service.save()
 				groups_ids=request.session['servicegroups']
-				Service.members.add(request.user)
 				sm=service_member(service=Service,user=request.user)
 				sm.save()
 				for id in groups_ids:
 					Group=group.objects.get(pk=id)
-					Service.groups.add(Group)
 					sg=service_group(service=Service,group=Group)
 					sg.save()
 					
@@ -254,12 +222,10 @@ def createservice(request):
 				Service.initiator=request.user
 				Service.save()
 				groups_ids=request.session['servicegroups']
-				Service.members.add(request.user)
 				sm=service_member(service=Service,user=request.user)
 				sm.save()
 				for id in groups_ids:
 					Group=group.objects.get(pk=id)
-					Service.groups.add(Group)
 					sg=service_group(service=Service,group=Group)
 					sg.save()
 					

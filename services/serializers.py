@@ -5,6 +5,8 @@ class serviceserializer(serializers.ModelSerializer):
 
 	class Meta:
 		model  =service
-		exclude=['members','groups']
+		exclude=['groups']
+
+
 
 	
