@@ -63,7 +63,7 @@ class servicefilterview(mixins.UpdateModelMixin,generics.ListAPIView):
 
 	
 class searchview(generics.ListAPIView):
-	
+	serializer_class=ServiceSerializer
 	authentication_classes =[BasicAuthentication]
 	permission_classes     =[IsAuthenticated]
 	filter_backends        = [filters.SearchFilter]
@@ -96,7 +96,7 @@ class searchview(generics.ListAPIView):
 		queryset=queryset.distinct()
 		return queryset
 
-	def get_serializer_class(self):
+	'''def get_serializer_class(self):
 		if self.request.query_params.get('service',None)=='Food':
 			return FoodServiceSerializer
 
@@ -110,7 +110,7 @@ class searchview(generics.ListAPIView):
 			return TravelServiceSerializer
 
 		else:
-			return ServiceSerializer
+			return ServiceSerializer'''
 
 
 def servicegroups(request):
