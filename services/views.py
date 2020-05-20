@@ -5,14 +5,13 @@ from django.contrib import messages
 from django.shortcuts import render,get_list_or_404,redirect
 from rest_framework import generics,mixins,permissions,authentication,filters
 from rest_framework.response import Response
-from .serializers import serviceserializer
+from .serializers import *
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 
 class servicefilterview(mixins.UpdateModelMixin,generics.ListAPIView):
 
-	serializer_class       =serviceserializer
 	authentication_classes =[BasicAuthentication]
 	permission_classes     =[IsAuthenticated]
 	
@@ -43,16 +42,32 @@ class servicefilterview(mixins.UpdateModelMixin,generics.ListAPIView):
 		return queryset
 
 	
+	def get_serializer_class(self):
+		if self.request.query_params.get('service',None)=='Food':
+			return FoodServiceSerializer
+
+		if self.request.query_params.get('service',None)=='Shopping':
+			return ShoppingServiceSerializer
+
+		if self.request.query_params.get('service',None)=='Event':
+			return EventServiceSerializer
+
+		if self.request.query_params.get('service',None)=='Travel':
+			return TravelServiceSerializer
+
+		else:
+			return ServiceSerializer
+
 	def put(self,request,*args,**kwargs):
 			self.update(request,*args,**kwargs)
 
 	
 class searchview(generics.ListAPIView):
-	serializer_class       =serviceserializer
+	
 	authentication_classes =[BasicAuthentication]
 	permission_classes     =[IsAuthenticated]
 	filter_backends        = [filters.SearchFilter]
-	search_fields          = ['^service_desc','^initiator__username']
+	search_fields          = ['^service_type__name','^initiator__username','^groups__name']
 
 	
 	def get_queryset(self):
@@ -81,7 +96,21 @@ class searchview(generics.ListAPIView):
 		queryset=queryset.distinct()
 		return queryset
 
+	def get_serializer_class(self):
+		if self.request.query_params.get('service',None)=='Food':
+			return FoodServiceSerializer
 
+		if self.request.query_params.get('service',None)=='Shopping':
+			return ShoppingServiceSerializer
+
+		if self.request.query_params.get('service',None)=='Event':
+			return EventServiceSerializer
+
+		if self.request.query_params.get('service',None)=='Travel':
+			return TravelServiceSerializer
+
+		else:
+			return ServiceSerializer
 
 
 def servicegroups(request):
