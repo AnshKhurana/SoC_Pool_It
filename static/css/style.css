@@ -10068,10 +10068,10 @@ aside.sidebar.full-style {
     border-style: solid;
     margin-top: 5px;
     margin-bottom: 5px;
+    padding: 5px 5px 5px 5px;
 }
 
 .all-messages{
-    margin: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 20px;
     width: 50%;
-    height: 50%;
 }

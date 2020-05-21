@@ -19,25 +19,21 @@
         <div class="container-fluid pdng0">
             <div class="row merged">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="login-reg-bg show">
-                        <div class="row white">
-                            <div class="columns large-12">
-                            <div class = "all-messages">
-                                <ul id="talk">
-                                    {% for object in obj_list %}
-                                    <div class = "message">
-                                        <li>
-                                            <strong>{{ object.user }}</strong><br/>
-                                            <em>{{ object.timestamp }}</em><br/>
-                                            <span>{{ object.content }}</span>
-                                        </li>
-                                    </div>
-                                    {% endfor %}
-                                </ul>
+                    <div class="row white">
+                        <div class="columns large-12">
+                        <div class = "all-messages">
+                            <div id="talk">
+                                {% for object in obj_list %}
+                                <div class = "message">
+                                        <strong>{{ object.user }}</strong><br/>
+                                        <em>{{ object.timestamp }}</em><br/>
+                                        <span>{{ object.content }}</span>
                                 </div>
+                                {% endfor %}
+                            </div>
                             </div>
                         </div>
-                    </div>
+                    </div>   
                 </div>
             </div>
         </div>
@@ -74,7 +70,7 @@
             success : function(json) {
                 $('#post-text').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console
-                $("#talk").append("<div><li><strong>"+json.user+"</strong><br/><em> "+json.timestamp+"</em><br/><span> "+json.content+"</span></li></div>");
+                $("#talk").append("<div><strong>"+json.user+"</strong><br/><em> "+json.timestamp+"</em><br/><span> "+json.content+"</span></div>");
                 console.log("success"); // another sanity check
             },
         
