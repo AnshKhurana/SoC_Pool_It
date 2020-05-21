@@ -22,15 +22,19 @@
                     <div class="login-reg-bg show">
                         <div class="row white">
                             <div class="columns large-12">
+                            <div class = "all-messages">
                                 <ul id="talk">
                                     {% for object in obj_list %}
+                                    <div class = "message">
                                         <li>
-                                            <strong>{{ object.user }}</strong> -
-                                            <em>{{ object.timestamp }}</em> -
+                                            <strong>{{ object.user }}</strong><br/>
+                                            <em>{{ object.timestamp }}</em><br/>
                                             <span>{{ object.content }}</span>
                                         </li>
+                                    </div>
                                     {% endfor %}
                                 </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -38,11 +42,13 @@
             </div>
         </div>
     </div>
+    <div class = "inp">
     <form  method="POST" id="post-form" action="/chat/{{s_id}}/chatroom/">
         {% csrf_token %}
         <div id = "msg">{{form.as_p}}</div>
         <button type="submit">Send</button>
     </form>
+    </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
     <script>
@@ -68,7 +74,7 @@
             success : function(json) {
                 $('#post-text').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console
-                $("#talk").append("<li><strong>"+json.user+"</strong> - <em> "+json.timestamp+"</em> - <span> "+json.content+"</span></li>");
+                $("#talk").append("<div><li><strong>"+json.user+"</strong><br/><em> "+json.timestamp+"</em><br/><span> "+json.content+"</span></li></div>");
                 console.log("success"); // another sanity check
             },
         

@@ -10058,4 +10058,20 @@ aside.sidebar.full-style {
     text-transform: uppercase;
 }
 
+/*====================
+***Message styling***
+=====================*/
 
+.message{
+    border: #0077b5;
+    border-width: 2px;
+    border-style: solid;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.all-messages{
+    margin: 10px 10px 10px 10px;
+    width: 50%;
+    height: 50%;
+}
