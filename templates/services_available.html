@@ -24,28 +24,37 @@
         <div id='groups'>
         {% for group in user.joined_groups.all %}
             <div class='checkbox'>
-                <label><input type="checkbox" onchange=""/>{{group}}</label>
+                <label><input type="checkbox" id="group" onchange="GroupToggle()"/><span id="text">{{group}}</span></label>
             </div>
         {% endfor %}
+            <script>
+                var list=document.getElementbyClassName("checkbox");
+                var text=document.getElementbyClassName("text");
+                for(var i = 0; i< list.legth; i++){
+                    list[i].setAttribute("id", "group"+ i + 1);
+                    text[i].setAttribute("id", "text"+ i+1)
+
+                }
+            </script>
         </div>
     </div>
 
     <div class="filter">
         <h2 class='filter_heading'>Category</h2>
         <div class='checkbox'>
-            <label><input type="checkbox" onchange=""/>Shopping</label>
+            <label><input type="checkbox" id="Shopping" onchange="CategoryToggle()"/>Shopping</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox" onchange=""/>Food</label>
+            <label><input type="checkbox" id="Food"  onchange="CategoryToggle()"/>Food</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox" onchange=""/>Travel</label>
+            <label><input type="checkbox" id="Travel" onchange="CategoryToggle()"/>Travel</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox" onchange=""/>Event</label>
+            <label><input type="checkbox" id="Event" onchange="CategoryToggle()"/>Event</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox" onchange=""/>Others</label>
+            <label><input type="checkbox" id="Others" onchange="CategoryToggle()"/>Others</label>
         </div>
     </div>
 
