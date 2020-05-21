@@ -68,7 +68,7 @@
             success : function(json) {
                 $('#post-text').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console
-                $("#talk").prepend("<li><strong>"+json.user+"</strong> - <em> "+json.timestamp+"</em> - <span> "+json.content+"</span></li>");
+                $("#talk").append("<li><strong>"+json.user+"</strong> - <em> "+json.timestamp+"</em> - <span> "+json.content+"</span></li>");
                 console.log("success"); // another sanity check
             },
         

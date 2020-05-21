@@ -10,7 +10,7 @@ function create_message() {
         success : function(json) {
             $('#post-message').val(''); // remove the value from the input
             console.log(json); // log the returned json to the console
-            $("#talk").prepend("<li><strong>"+json.content+"</strong> - <em> "+json.user+"</em> - <span> "+json.timestamp+"</span></li>");
+            $("#talk").append("<li><strong>"+json.content+"</strong> - <em> "+json.user+"</em> - <span> "+json.timestamp+"</span></li>");
             console.log("success"); // another sanity check
         },
         
