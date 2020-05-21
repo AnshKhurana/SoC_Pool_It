@@ -19,21 +19,23 @@
         <div class="container-fluid pdng0">
             <div class="row merged">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="row white">
-                        <div class="columns large-12">
-                        <div class = "all-messages">
-                            <div id="talk">
-                                {% for object in obj_list %}
-                                <div class = "message">
-                                        <strong>{{ object.user }}</strong><br/>
-                                        <em>{{ object.timestamp }}</em><br/>
-                                        <span>{{ object.content }}</span>
+                    <div class="login-reg-bg show">
+                        <div class="row white">
+                            <div class="columns large-12">
+                            <div class = "all-messages">
+                                <div id="talk">
+                                    {% for object in obj_list %}
+                                    <div class = "message">
+                                            <strong>{{ object.user }}</strong><br/>
+                                            <em>{{ object.timestamp }}</em><br/>
+                                            <span>{{ object.content }}</span>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                                {% endfor %}
-                            </div>
+                                </div>
                             </div>
                         </div>
-                    </div>   
+                    </div>
                 </div>
             </div>
         </div>
