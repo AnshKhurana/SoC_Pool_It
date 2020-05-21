@@ -60,7 +60,7 @@ def create_message(request,s_id):
         response_data['result'] = 'Create post successful!'
         response_data['pk'] = message.pk
         response_data['content'] = message.content
-        response_data['timestamp'] = message.timestamp.strftime('%B %d, %Y %I:%M %p')
+        response_data['timestamp'] = timezone.localtime(timezone.now()).strftime('%B %d, %Y %I:%M %p')
         response_data['user'] = message.user.username
         
 

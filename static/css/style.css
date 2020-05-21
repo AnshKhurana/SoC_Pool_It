@@ -10064,6 +10064,7 @@ aside.sidebar.full-style {
 .message{
     border: #0077b5;
     border-width: 2px;
+    border-radius: 5px;
     border-style: solid;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -10071,6 +10072,12 @@ aside.sidebar.full-style {
 }
 
 .all-messages{
-    margin: 10px 10px 10px 20px;
+    margin-left: 25%;
     width: 50%;
+    margin-bottom: 10px;
+}
+
+.inp{
+    margin-left: 40%;
+    margin-bottom: 10px;
 }
