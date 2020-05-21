@@ -1,5 +1,6 @@
 function create_message() {
-    console.log("create post is working!") // sanity check
+    console.log("create post is working!")
+    console.log($('#post-message').val()) // sanity check
     $.ajax({
         url : "create", // the endpoint
         type : "POST", // http method
@@ -7,7 +8,6 @@ function create_message() {
         
         // handle a successful response
         success : function(json) {
-            
             $('#post-message').val(''); // remove the value from the input
             console.log(json); // log the returned json to the console
             $("#talk").prepend("<li><strong>"+json.content+"</strong> - <em> "+json.user+"</em> - <span> "+json.timestamp+"</span></li>");
@@ -22,13 +22,10 @@ function create_message() {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
     });
+
+    
 };
-
-$(function() {
-
-
-    // This function gets cookie with a given name
-    function getCookie(name) {
+function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
             var cookies = document.cookie.split(';');
@@ -78,4 +75,3 @@ $(function() {
         }
     });
 
-});
