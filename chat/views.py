@@ -1,9 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from main.models import Message
+from main.models import Message,service
 from accounts.models import User
 from chat.forms import ChatForm
 from django.utils import timezone
-from main.models import service
 from django.http import HttpResponse
 from django.utils import timezone
 import json
@@ -73,3 +72,8 @@ def create_message(request,s_id):
             json.dumps({"nothing to see": "this isn't happening"}),
             content_type="application/json"
         )
+def service_list(request):
+    u = request.user
+    qs = u.ServiceMember.all()
+    return render (request,'gotochat.html',{"obj_list": qs})
+

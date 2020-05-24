@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Chat Room</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+   
+    
+    
+
+</head>
+<body>
+
+    
+                                                    
+                                    {% for object in obj_list %}
+                                    
+                                            <h1><strong>{{ object.service_type }}</strong></h1><br/>
+                                            
+                                            <em>Initiator:   {{ object.initiator }}</em><br/>
+    
+                                            <span>Start-Time:  {{ object.start_time }}</span><br/>
+                                            <span>End-Time:   {{ object.end_time }}</span><br/>
+                                            <a href = "/chat/{{object.service_id}}/chatroom/">Goto chat</a><br/>
+                                            
+                                    
+                                    {% endfor %}
+                                
+                                
+   
+   
+</body>
+</html>
