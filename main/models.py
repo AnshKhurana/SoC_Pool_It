@@ -79,7 +79,7 @@ class TravelService(service):
         ('Train', 'Train'),
         ('Flight', 'Flight'),
     ]
-    transport = models.CharField(max_length=10, choices=TRAVEL_CHOICES, null=False)
+    transport = models.CharField(max_length=10, choices=TRAVEL_CHOICES, null=True)
 
     def __str__(self):
         return '%s' % self.transport
