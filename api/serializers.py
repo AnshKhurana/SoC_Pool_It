@@ -52,8 +52,9 @@ class ServiceSerializer(serializers.ModelSerializer):
 			)
 
 		data = serializer(obj, context=self.context).to_representation(obj)
-#		data['initiator']=data['initiator']['username']
-		user=obj.members.get(username=data['initiator']['username'])
+		data['initiator']=data['initiator']['username']
+		data['service_type']=data['service_type']['name']
+		user=obj.members.get(username=data['initiator'])
 		if user:
 			data['is_member']=True
 		else:
@@ -63,7 +64,7 @@ class ServiceSerializer(serializers.ModelSerializer):
 	def to_internal_value(self, data):
 
 		try:
-			serializer = self.get_serializer_map()[data['service_type']['name']]
+			serializer = self.get_serializer_map()[data['service_type']]
 		except KeyError:
 			raise serializers.ValidationError({
 				'service_type': 'Serializer for "{}" does not exist'.format(type_str),
@@ -92,14 +93,16 @@ class ShoppingServiceSerializer(serializers.ModelSerializer):
 		exclude=['groups','members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','vendor']
 
+
 class EventServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
 
 	class Meta:
 		model=EventService
-		exclude=['groups','members','polymorphic_ctype',]
+		exclude=['groups','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','location','event_type']
+
 
 class TravelServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
@@ -109,6 +112,8 @@ class TravelServiceSerializer(serializers.ModelSerializer):
 		model=TravelService
 		exclude=['groups','members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','start_point','end_point','transport']
+
+
 class OtherServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
