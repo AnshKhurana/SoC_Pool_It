@@ -1,0 +1,109 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Services available</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/service.css' %}">
+    <script src="{% static 'js/service.js' %}"></script>
+</head>
+<body>
+    
+    <div id='topbar'>
+    <input type="text" id='searchTerm' onkeyup="" placeholder="Search for services..">
+    <hr>
+    </div>
+
+    <div id="sidebar">
+
+    <div class="filter">
+        <h2 class='filter_heading'>Groups</h2>
+        <label for="category">Choose the groups:</label>    
+        <select id="group" multiple>
+        {% for group in user.joined_groups.all %}
+               <option>{{group}}</option>
+        {% endfor %}
+        </select>
+        <p>Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.</p>
+    </div>
+
+    <div class="filter">
+        <h2 class='filter_heading'>Category</h2>
+       <label for="category">Choose the categories:</label>
+            <select id="category" multiple>
+              <option selected>All</option>
+              <option>Food</option>
+              <option>Shopping</option>
+              <option>Travel</option>
+              <option>Events</option>
+              <option>Others</option>
+           </select>   
+              <p>Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.</p>
+    </div>
+
+    <div class="filter">
+        <h2 class='filter_heading'>Interested Period</h2>
+        <label for='start_date'>From:<br>
+            <input type="datetime-local" id="from" name='from' onchange="">
+        </label>
+        <br>
+        <label for='end_date'>Until:<br>
+            <input type="datetime-local" id="until" name='until' onchange="">
+        </label>
+        <br><br>
+        <button class="date_search" onclick="">Find Services</button>
+    </div>
+
+    <div id="main">
+
+    <ul class="middle" id="services_available">
+        {% for service in services %}
+            <li class='service'>
+                <h3>{{service.service_type}} Service</h3>
+                <button>
+                    {% if user in service.members.all %}
+                        Already A Member
+                    {% else %}
+                        Join
+                    {% endif %}
+                </button> 
+                <h3>
+                    {% if service.service_type.name == 'Food' or service.service_type.name == 'Shopping' %}
+                        {{service.vendor}}
+                    {% elif service.service_type.name == 'Travel' %}
+                        {{service.start_point}}->{{service.end_point}}
+                        <br>
+                        <h5>Via {{service.transport}}</h5>
+                    {% elif service.service_type.name == 'Event' %}
+                        {{service.event_type}}
+                        <br>
+                        <h5>At {{service.location}}</h5>
+                    {% else %}
+                        Other service
+                    {% endif %}
+                </h3>
+                <cite>by {{service.initiator.first_name}} {{service.initiator.last_name}}</cite>
+                <br><br>
+                <span>Start Time: <span id="startdate">{{service.start_time}}</span></span><br>
+                <span>End Time: <span id="enddate">{{service.end_time}}</span></span><br>
+                <p>
+                    {{service.service_desc}}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    </div>
+</div>
+
+<main>
+
+</main>
+
+
+
+</body>
+</html>
