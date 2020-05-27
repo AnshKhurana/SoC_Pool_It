@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Chat Room</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+   
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/color.css' %}">
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <div class="theme-layout">
+        <div class="container-fluid pdng0">
+            <div class="row merged">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="login-reg-bg show">
+                        <div class="row white">
+                            <div class="columns large-12">
+                            <div class = "all-messages">
+                                <div id="talk">
+                                    {% for object in obj_list %}
+                                    <div class = "message">
+                                            <strong>{{ object.user }}</strong><br/>
+                                            <em>{{ object.timestamp }}</em><br/>
+                                            <span>{{ object.content }}</span>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class = "inp">
+    <form  method="POST" id="post-form" action="/chat/{{s_id}}/chatroom/">
+        {% csrf_token %}
+        <div id = "msg">{{form.as_p}}</div>
+        <button type="submit">Send</button>
+    </form>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <script>
+
+
+        // Submit post on submit
+        $('#post-form').on('submit', function(event){
+            event.preventDefault();
+            console.log("form submitted!")  // sanity check
+            create_post();
+        });
+    
+        // AJAX for posting
+        function create_post() {
+            console.log("create post is working!")
+            console.log($('#post-text').val()) // sanity check
+            $.ajax({
+                url : "create", // the endpoint
+                type : "POST", // http method
+                data : { msg : $('#post-text').val() }, // data sent with the post request
+        
+        // handle a successful response
+            success : function(json) {
+                $('#post-text').val(''); // remove the value from the input
+                console.log(json); // log the returned json to the console
+                $("#talk").append("<div><strong>"+json.user+"</strong><br/><em> "+json.timestamp+"</em><br/><span> "+json.content+"</span></div>").addClass("message all-messages login-reg-bg show theme-layout container-fluid pdng0 row merged col-lg-6 col-md-6 col-sm-6 col-xs-12");
+                console.log("success"); // another sanity check
+            },
+        
+
+        // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        
+        });
+        };
+    
+        // This function gets cookie with a given name
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+    
+        /*
+        The functions below will create a header with csrftoken
+        */
+    
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        function sameOrigin(url) {
+            // test that a given url is a same-origin URL
+            // url could be relative or scheme relative or absolute
+            var host = document.location.host; // host + port
+            var protocol = document.location.protocol;
+            var sr_origin = '//' + host;
+            var origin = protocol + sr_origin;
+            // Allow absolute or scheme relative URLs to same origin
+            return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+                (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+                // or any other URL that isn't scheme relative or absolute i.e relative.
+                !(/^(\/\/|http:|https:).*/.test(url));
+        }
+    
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                    // Send the token to same-origin, relative URLs only.
+                    // Send the token only if the method warrants CSRF protection
+                    // Using the CSRFToken value acquired earlier
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+    
+    </script>
+</body>
+</html>

@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import auth
 from django.conf import settings
 from polymorphic.models import PolymorphicModel
+from accounts.models import User
 # Create your models here.
 
 #---------------------------------------------------#
@@ -95,18 +96,16 @@ class EventService(service):
 class OtherService(service):
     pass
 
-#---------------------------------------------------#
+
 
 class Message(models.Model):
-    service_id = models.ForeignKey(service, on_delete=models.CASCADE)
-    user_id =  models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    service = models.ForeignKey(service,related_name = 'MessageService' ,on_delete=models.CASCADE)
+    user =  models.ForeignKey(settings.AUTH_USER_MODEL,related_name = 'UserMessage', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
-
+    seen = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name = 'seenby')
     def __str__(self):
         return self.content + " " + str(self.timestamp)
-
-#---------------------------------------------------#
 
 class service_group(models.Model):
     service = models.ForeignKey(service, on_delete=models.CASCADE)
@@ -117,4 +116,4 @@ class service_member(models.Model):
     service = models.ForeignKey(service, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-#---------------------------------------------------#
+#---------------------------------------------------

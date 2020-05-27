@@ -4,6 +4,7 @@ from services.forms import groupsform,FoodServiceForm,EventServiceForm,TravelSer
 from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import render,get_list_or_404,redirect
+from django.http import HttpResponse
 
 
 def servicegroups(request):
@@ -163,3 +164,4 @@ def services_available(request):
 		if set(sr.groups.all()) & set(Groups):
 			Services += [sr]
 	return render(request, 'services_available.html', {'services':Services})
+	
