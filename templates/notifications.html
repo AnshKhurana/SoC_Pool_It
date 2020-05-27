@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Chat Room</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+   
+   
+
+</head>
+<body>
+    
+                                <div>
+                                    {% for object in obj_list %}
+                                    
+                                            <div>
+                                                <h4>{{ object.timestamp }}</h4>
+                                                <h5>message from {{ object.user }}</h5>
+                                                <span>{{ object.content }}</span>
+                                                <input class="btn btn-success" type="button" value="Delete" onclick="location.href='{{object.id}}/deleteone' " />
+                                            </div>
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    {% if obj_list%}
+                                    <input class="btn btn-success" type="button" value="Delete All" onclick="location.href='deleteall' " />
+                                    {% endif %}
+                                </div>
+                                </div>
+    
+</body>
+</html>

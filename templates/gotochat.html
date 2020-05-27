@@ -13,8 +13,12 @@
 
 </head>
 <body>
-
-<h3> You are a member of following services:</h3>    
+{% if obj_list %}
+<h3> You are a member of following services:</h3>  
+{% else %}
+<h3> You are not a member of any service</h3>
+{% endif %}
+  
                                                     
                                     {% for object in obj_list %}
                                     

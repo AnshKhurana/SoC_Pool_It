@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from main.models import Message,service
+from main.models import service,Message
 from accounts.models import User
 from chat.forms import ChatForm
 from django.utils import timezone
@@ -39,6 +39,10 @@ def chat_view(request , s_id):
     form = ChatForm()
     if request.user in service_obj.members.all():
         qs = Message.objects.filter(service = service_obj)
+        for q in qs:
+            if request.user not in q.seen.all():
+                q.seen.add(request.user)
+            
         return render (request,'message_create.html',{"form" : form,"obj_list": qs})
     else:
         return HttpResponse ('You have to be a member of the service to join the chat')
@@ -49,13 +53,14 @@ def create_message(request,s_id):
     if request.method == 'POST':
         service_obj = get_object_or_404(service , service_id = s_id)
         message_text = request.POST.get('msg')
-        print(message_text)
-        print("megha")
         response_data = {}
-
-        message = Message(content=message_text, user=request.user , service = service_obj )
+        
+        message = Message(content=message_text, user=request.user , service = service_obj  )
+        
         message.save()
-        print(message.content)
+        
+        print(message)
+    
         response_data['result'] = 'Create post successful!'
         response_data['pk'] = message.pk
         response_data['content'] = message.content
@@ -75,5 +80,30 @@ def create_message(request,s_id):
 def service_list(request):
     u = request.user
     qs = u.ServiceMember.all()
+    notifi = 'chat/notify'
     return render (request,'gotochat.html',{"obj_list": qs})
 
+
+
+def notifications(request):
+    messages = Message.objects.all()
+    unseen = []
+    for message in messages:
+        if message.user not in message.seen.all():
+            message.seen.add(message.user)
+        if request.user not in message.seen.all():
+            unseen.append(message)
+
+    return render (request,'notifications.html',{"obj_list": unseen})
+
+def clearall(request):
+    messages = Message.objects.all()
+    for message in messages:
+        users_seen = message.seen.add(request.user)
+    return redirect('/chat/notify')      
+
+def clearone(request,m_id):
+    required_message = Message.objects.filter(id = m_id).first()
+    users_seen = required_message.seen.add(request.user)
+    print("Trying to delete")
+    return redirect('/chat/notify')     
