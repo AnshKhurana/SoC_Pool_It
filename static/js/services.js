@@ -1,5 +1,6 @@
 
 
+
 function ServiceFiltering(){
 	var select=document.getElementsById('services_available');
 	select.innerHTML="";
@@ -7,8 +8,6 @@ function ServiceFiltering(){
 		baseURL: 'https://127.0.0.1:8000',
 		timeout: 5000,
 	});
-
-
 
 	instance.get('/api/servicefilter',{
 		params:{
@@ -56,7 +55,7 @@ function ServiceFiltering(){
 							select.innerHTML += "<li><div>" +
 							"<h4>Event Service</h4>" +
 				 			"<h5>" + reply[item].event_type + "</h5>" +
-				 			"<h5>at " + reply[item].location + "</h5>"
+							"<h5>at " + reply[item].location + "</h5>"
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
 							"<span> " + reply[item].service_desc + "</span>" +
@@ -69,7 +68,6 @@ function ServiceFiltering(){
 							select.innerHTML += "<li><div>" +
 							"<h4>Event Service</h4>" +
 							"<h5>" + reply[item].event_type + "</h5>" +
-				 			"<h5>at " + reply[item].location + "</h5>"
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
 							"<span> " + reply[item].service_desc + "</span>" +
