@@ -169,6 +169,7 @@ function search_service(){
 	ServiceFiltering();
 }
 
+categories("all")
 function categories(c){
 	service_type = String(c);
 	if (service=="all"){

@@ -13,7 +13,7 @@
 <body>
     
     <div id='topbar'>
-    <input type="text" id='myInput' onkeyup="" placeholder="Search for services..">
+    <input type="text" id='myInput' onkeyup="search_service()" placeholder="Search for services..">
     <hr>
     </div>
 
@@ -24,18 +24,9 @@
         <div id='groups'>
         {% for group in user.joined_groups.all %}
             <div class='checkbox'>
-                <label><input type="checkbox" onchange="GroupToggle()"/><span class='grp'>{{group}}</span></label>
+                <label><input type="checkbox" onchange="group_filter()"/><span class='grp'>{{group}}</span></label>
             </div>
         {% endfor %}
-            <script>
-                var list=document.getElementbyClassName("checkbox");
-                var text=document.getElementbyClassName("text");
-                for(var i = 0; i< list.legth; i++){
-                    list[i].setAttribute("id", "group"+ i + 1);
-                    text[i].setAttribute("id", "text"+ i+1)
-
-                }
-            </script>
         </div>
     </div>
 
@@ -71,7 +62,7 @@
             <input type="datetime-local" id="until" name='until' onchange="">
         </label>
         <br><br>
-        <button class="date_search" onclick="ServiceFiltering()">Find Services</button>
+        <button class="date_search" onclick="DateTime()">Find Services</button>
     </div>
 
     </div>
