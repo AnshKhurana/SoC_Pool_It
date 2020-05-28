@@ -1,7 +1,7 @@
 var start=undefined;
 var end=undefined;
 var text=undefined;
-var service=undefined;
+var service_type=undefined;
 var group_ids_string=undefined;
 
 
@@ -15,7 +15,7 @@ function ServiceFiltering(){
 
 	instance.get('/api/servicefilter',{
 		params:{
-			service=service,
+			service=service_type,
 			group_ids=group_ids_string,
 			start_time=start_time,
 			end_time=end_time,
@@ -170,7 +170,7 @@ function search_service(){
 }
 
 function categories(c){
-	service = String(c);
+	service_type = String(c);
 	if (service=="all"){
 		service=undefined;
 	}
