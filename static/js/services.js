@@ -179,11 +179,11 @@ function categories(c){
 }
 
 function group_filter(){
-	var list = document.getElementsByClassName("grp");
+	var list = document.getElementsByClassName("group_id");
 	group_ids_string = ""
 
 	for(var i=0; i<list.length; i++){
-		group_ids_string += String(list[i].group_id)+" ";
+		group_ids_string += String(list[i].id)+" ";
 	}
 
 	if(group_ids_string==""){

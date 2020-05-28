@@ -109,3 +109,7 @@ cite{
 #services_available span{
     color: rgb(46, 44, 44);
 }
+
+span.group_id{
+    visibility: hidden;
+}

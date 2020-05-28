@@ -24,7 +24,7 @@
         <div id='groups'>
         {% for group in user.joined_groups.all %}
             <div class='checkbox'>
-                <label><input type="checkbox" onchange="group_filter()"/><span class='grp'>{{group}}</span></label>
+                <label><input type="checkbox" onchange="group_filter()"/><span id="{{group.group_id}}" class='grp'>{{group}}</span></label>
             </div>
         {% endfor %}
         </div>
