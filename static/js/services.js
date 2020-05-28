@@ -1,4 +1,8 @@
-
+var start=undefined;
+var end=undefined;
+var text=undefined;
+var service=undefined;
+var group_ids_string=undefined;
 
 
 function ServiceFiltering(){
@@ -139,4 +143,51 @@ function join_service(service_id){
 			}
 		})
 	}
+}
+
+function DateTime(){
+	start=document.getElementById("from").value;
+	end=document.getElementById("until").value;
+
+	if (start==undefined || start=="" ){
+		start = undefined;
+	}
+	else if ( end==undefined || end=="" ){
+		end=undefined;
+	}
+	
+	ServiceFiltering();
+}
+
+function search_service(){
+	text=document.getElementById("myInput").value;
+	
+	if (text==""){
+		text=undefined;
+	}
+
+	ServiceFiltering();
+}
+
+function categories(c){
+	service = String(c);
+	if (service=="all"){
+		service=undefined;
+	}
+	ServiceFiltering();
+}
+
+function group_filter(){
+	var list = document.getElementsByClassName("grp");
+	group_ids_string = ""
+
+	for(var i=0; i<list.length; i++){
+		group_ids_string += String(list[i].group_id)+" ";
+	}
+
+	if(group_ids_string==""){
+		group_ids_string=undefined;
+	}
+
+	ServiceFiltering();
 }

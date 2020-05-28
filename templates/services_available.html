@@ -14,7 +14,6 @@
     
     <div id='topbar'>
     <input type="text" id='myInput' onkeyup="" placeholder="Search for services..">
-    <button onclick="ServiceFiltering()">search</button>
     <hr>
     </div>
 
@@ -25,7 +24,7 @@
         <div id='groups'>
         {% for group in user.joined_groups.all %}
             <div class='checkbox'>
-                <label><input type="checkbox" id="group" onchange="GroupToggle()"/><span id="text">{{group}}</span></label>
+                <label><input type="checkbox" onchange="GroupToggle()"/><span class='grp'>{{group}}</span></label>
             </div>
         {% endfor %}
             <script>
@@ -43,19 +42,22 @@
     <div class="filter">
         <h2 class='filter_heading'>Category</h2>
         <div class='checkbox'>
-            <label><input type="checkbox" id="Shopping" onchange="CategoryToggle()"/>Shopping</label>
+            <label><button onclick="category('all')">All</button></label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox" id="Food"  onchange="CategoryToggle()"/>Food</label>
+            <label><button onclick="category('Shopping')">Shopping</button></label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox" id="Travel" onchange="CategoryToggle()"/>Travel</label>
+            <label><button onclick="category('Food')">Food</button></label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox" id="Event" onchange="CategoryToggle()"/>Event</label>
+            <label><button onclick="category('Travel')">Travel</button></label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox" id="Others" onchange="CategoryToggle()"/>Others</label>
+            <label><button onclick="category('Event')">Event</button></label>
+        </div>
+        <div class='checkbox'>
+            <label><button onclick="category('Other')">Others</button></label>
         </div>
     </div>
 
