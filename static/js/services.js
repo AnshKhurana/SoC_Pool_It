@@ -32,8 +32,8 @@ function ServiceFiltering(){
 					if(reply[item].service_type in ['Food','Shopping']){
 						if(reply[item].is_member==true){
 							select.innerHTML += "<li> <div>" +
-							"<h4>"reply[item].service_type+" Service</h4>" +
-				 			"<h5>" + reply[item].vendor + "</h5>" +
+							"<h3>"reply[item].service_type+" Service</h3>" +
+				 			"<h2>" + reply[item].vendor + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
 							"<span> " + reply[item].service_desc + "</span>" +
@@ -44,8 +44,8 @@ function ServiceFiltering(){
 						else{
 							{#here, reply[item] is our service object, can access fields directly,#}
 							select.innerHTML += "<li> <div>" +
-							"<h4>"reply[item].service_type+" Service</h4>" +
-							"<h5>" + reply[item].vendor + "</h5>" +
+							"<h3>"reply[item].service_type+" Service</h3>" +
+							"<h2>" + reply[item].vendor + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
 							"<span> " + reply[item].service_desc + "</span>" +
@@ -57,8 +57,8 @@ function ServiceFiltering(){
 					if(reply[item].service_type=='Event'){
 						if(reply[item].is_member==true){
 							select.innerHTML += "<li><div>" +
-							"<h4>Event Service</h4>" +
-				 			"<h5>" + reply[item].event_type + "</h5>" +
+							"<h3>Event Service</h3>" +
+				 			"<h2>" + reply[item].event_type + "</h2>" +
 							"<h5>at " + reply[item].location + "</h5>"
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
@@ -70,8 +70,8 @@ function ServiceFiltering(){
 						else{
 							{#here, reply[item] is our service object, can access fields directly,#}
 							select.innerHTML += "<li><div>" +
-							"<h4>Event Service</h4>" +
-							"<h5>" + reply[item].event_type + "</h5>" +
+							"<h3>Event Service</h3>" +
+							"<h2>" + reply[item].event_type + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
 							"<span> " + reply[item].service_desc + "</span>" +
@@ -83,7 +83,7 @@ function ServiceFiltering(){
 					if(reply[item].service_type=='Travel'){
 						if(reply[item].is_member==true){
 							select.innerHTML += "<li><div>" +
-							"<h4>Travel Service</h4>" +
+							"<h3>Travel Service</h3>" +
 				 			"<h5>via " + reply[item].travel + "</h5>" +
 							"<h4><p>From: " + reply[item].start_point + "<br> To: " + reply[item].end_point + "</p></h4>"
 							"<p> by " + reply[item].initiator + "</p>" +
@@ -96,8 +96,8 @@ function ServiceFiltering(){
 						else{
 							{#here, reply[item] is our service object, can access fields directly,#}
 							select.innerHTML += "<li><div>" +
-							"<h4>Travel Service</h4>" +
-							"<h5>" + reply[item].travel + "</h5>" +
+							"<h3>Travel Service</h3>" +
+							"<h2>" + reply[item].travel + "</h2>" +
 							"<h4><p>From: " + reply[item].start_point + "<br> To: " + reply[item].end_point + "</p></h4>"
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
@@ -179,7 +179,7 @@ function categories(c){
 }
 
 function group_filter(){
-	var list = document.getElementsByClassName("group_id");
+	var list = document.getElementsByClassName("grp");
 	group_ids_string = ""
 
 	for(var i=0; i<list.length; i++){
