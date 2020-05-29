@@ -99,7 +99,7 @@ class OtherService(service):
 
 
 class Message(models.Model):
-    service = models.ForeignKey(service,related_name = 'MessageService' ,on_delete=models.CASCADE)
+    service = models.ForeignKey(service,related_name = 'MessageService' ,on_delete=models.CASCADE,)
     user =  models.ForeignKey(settings.AUTH_USER_MODEL,related_name = 'UserMessage', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()

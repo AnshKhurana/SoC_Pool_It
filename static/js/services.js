@@ -126,7 +126,7 @@ function join_service(service_id){
 	}
 
 	if(btn.innerHTML=='Join Service'){
-	axios.put('/api/addservicemember/',{
+	axios.get('/api/addservicemember/',{
 		params:{
 			id=service_id,
 		}

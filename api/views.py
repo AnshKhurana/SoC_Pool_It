@@ -56,7 +56,7 @@ class servicefilterview(generics.ListAPIView):
 		return queryset
 
 	
-@api_view(['PUT'])
+@api_view(['GET'])
 def add_service_member(request):
 	service_id=request.GET.get('id',None)
 	Service=service.objects.get(pk=service_id)
