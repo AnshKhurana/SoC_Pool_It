@@ -119,7 +119,7 @@ function ServiceFiltering(){
 
 
 function join_service(service_id){
-	var btn=getElementsById(service_id);
+	var btn=getElementById(service_id);
 
 	if(btn.innerHTML=='Already a member'){
 		alert("You are already a member of this service")
