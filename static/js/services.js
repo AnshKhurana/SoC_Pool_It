@@ -17,8 +17,8 @@ function ServiceFiltering(){
 		params:{
 			service=service_type,
 			group_ids=group_ids_string,
-			start_time=start_time,
-			end_time=end_time,
+			start_time=start,
+			end_time=end,
 			text=text,
 		}
 	}).then(

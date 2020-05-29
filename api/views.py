@@ -49,9 +49,9 @@ class servicefilterview(generics.ListAPIView):
 		if Text:
 			
 			if Service in ['Food','Shopping']:
-				filt=filt&(Q(service_desc__search=Text)|Q(initiator__username__search=Text)|Q(vendor__search=Text))
+				filt=filt&(Q(service_desc__icontains=Text)|Q(initiator__username__icontains=Text)|Q(vendor__icontains=Text))
 			else:
-				filt=filt&(Q(service_desc__search=Text)|Q(initiator__username__search=Text))
+				filt=filt&(Q(service_desc__icontains=Text)|Q(initiator__username__icontains=Text))
 		queryset=service.objects.filter(filt).distinct().all()
 		return queryset
 
