@@ -172,23 +172,27 @@ function search_service(){
 categories("all")
 function categories(c){
 	service_type = String(c);
-	if (service=="all"){
-		service=undefined;
+	if (service_type=="all"){
+		service_type=undefined;
 	}
 	ServiceFiltering();
 }
 
-function group_filter(){
-	var list = document.getElementsByClassName("grp");
-	group_ids_string = ""
 
-	for(var i=0; i<list.length; i++){
+
+function group_filter() {
+    var list = document.querySelectorAll(`input[name="group"]:checked`);
+    let group_ids_string = "";
+
+    for(var i=0; i<list.length; i++){
 		group_ids_string += String(list[i].id)+" ";
 	}
 
-	if(group_ids_string==""){
+    if(group_ids_string==""){
 		group_ids_string=undefined;
 	}
-
-	ServiceFiltering();
+    ServiceFiltering();
 }
+
+
+
