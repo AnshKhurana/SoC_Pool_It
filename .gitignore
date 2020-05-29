@@ -9,5 +9,6 @@ main/migrations/
 services/__pycache__
 services/migrations
 api/migrations
+chat/migrations
 accounts
 *__pycache__*
