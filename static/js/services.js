@@ -5,6 +5,7 @@ var service_type=undefined;
 var group_ids_string=undefined;
 
 
+
 window.onload=function ServiceFiltering(){
 					var select=document.getElementById("services_available");
 					select.innerHTML=" ";
