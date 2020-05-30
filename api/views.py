@@ -55,6 +55,11 @@ class servicefilterview(generics.ListAPIView):
 		queryset=service.objects.filter(filt).distinct().all()
 		return queryset
 
+	'''def list(self, request):
+		queryset=self.get_queryset()
+		serializer=ServiceSerializer(queryset, many=True, context={'request':request})
+		return Response(serializer.data)
+	'''
 	
 @api_view(['GET'])
 def add_service_member(request):

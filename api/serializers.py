@@ -54,7 +54,7 @@ class ServiceSerializer(serializers.ModelSerializer):
 		data = serializer(obj, context=self.context).to_representation(obj)
 		data['initiator']=data['initiator']['username']
 		data['service_type']=data['service_type']['name']
-		user=obj.members.get(username=self.context['request'].user)
+		user=obj.members.get(username=self.context['request'].user.username)
 		if user:
 			data['is_member']=True
 		else:
