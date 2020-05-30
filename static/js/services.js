@@ -15,11 +15,11 @@ function ServiceFiltering(){
 
 	instance.get('/api/servicefilter',{
 		params:{
-			service=service_type,
-			group_ids=group_ids_string,
-			start_time=start,
-			end_time=end,
-			text=text,
+			service:service_type,
+			group_ids:group_ids_string,
+			start_time:start,
+			end_time:end,
+			text:text,
 		}
 	}).then(
 		function(response){
