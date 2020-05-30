@@ -185,7 +185,7 @@ function group_filter() {
     let group_ids_string = "";
 
     for(var i=0; i<list.length; i++){
-		group_ids_string += String(list[i].id)+" ";
+		group_ids_string += String(list[i].value)+" ";
 	}
 
     if(group_ids_string==""){

@@ -24,7 +24,7 @@
         <div id='groups'>
         {% for group in user.joined_groups.all %}
             <div class='checkbox'>
-               <input type="checkbox" onchange="group_filter()"/ id="group_filter" name="group"> <label for="group_filter"><span id="{{group.group_id}}" class='grp'>{{group}}</span></label>
+                <label class="group"><input type="checkbox" onchange="group_filter()" value="{{group.group_id}}" name="group">{{group}}</label>
             </div>
         {% endfor %}
         </div>
@@ -33,22 +33,22 @@
     <div class="filter">
         <h2 class='filter_heading'>Category</h2>
         <div class='checkbox'>
-            <label><input type="checkbox" onclick="categories('all')">All</label>
+            <label><input type="checkbox" onchange="categories('all')">All</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onclick="categories('Shopping')">Shoppin</label>
+            <label><input type="checkbox"  onchange="categories('Shopping')">Shoppin</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onclick="categories('Food')">Food</label>
+            <label><input type="checkbox"  onchange="categories('Food')">Food</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onclick="categories('Travel')">Trave</label>
+            <label><input type="checkbox"  onchange="categories('Travel')">Trave</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onclick="categories('Event')">Even</label>
+            <label><input type="checkbox"  onchange="categories('Event')">Even</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onclick="categories('Other')">Other</label>
+            <label><input type="checkbox"  onchange="categories('Other')">Other</label>
         </div>
     </div>
 
