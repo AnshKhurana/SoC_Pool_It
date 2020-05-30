@@ -1,13 +1,13 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang='en'>
 <head>
+    {% load static %}
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Services available</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/service.css' %}">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{% static 'js/services.js' %}"></script>
 </head>
 <body>
@@ -24,7 +24,7 @@
         <div id='groups'>
         {% for group in user.joined_groups.all %}
             <div class='checkbox'>
-               <input type="checkbox" onchange="group_filter()"/ id="group_filter" name="group"> <label for="group_filter"><span id="{{group.group_id}}" class='grp'>{{group}}</span></label>
+               <label class="group"><input type="checkbox" onchange="groups_filter()" value="{{group.group_id}}" name="group"> {{group}}</label>
             </div>
         {% endfor %}
         </div>
@@ -33,33 +33,33 @@
     <div class="filter">
         <h2 class='filter_heading'>Category</h2>
         <div class='checkbox'>
-            <label><input type="checkbox" onclick="categories('all')">All</label>
+            <label><input type="checkbox" onchange="categories('all')">All</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onclick="categories('Shopping')">Shoppin</label>
+            <label><input type="checkbox"  onchange="categories('Shopping')">Shoppin</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onclick="categories('Food')">Food</label>
+            <label><input type="checkbox"  onchange="categories('Food')">Food</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onclick="categories('Travel')">Trave</label>
+            <label><input type="checkbox"  onchange="categories('Travel')">Trave</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onclick="categories('Event')">Even</label>
+            <label><input type="checkbox"  onchange="categories('Event')">Even</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onclick="categories('Other')">Other</label>
+            <label><input type="checkbox"  onchange="categories('Other')">Other</label>
         </div>
     </div>
 
     <div class="filter">
         <h2 class='filter_heading'>Interested Period</h2>
         <label for='start_date'>From:<br>
-            <input type="datetime-local" id="from" name='from' onchange="">
+            <input type="datetime-local" id="from" name='from'>
         </label>
         <br>
         <label for='end_date'>Until:<br>
-            <input type="datetime-local" id="until" name='until' onchange="">
+            <input type="datetime-local" id="until" name='until'>
         </label>
         <br><br>
         <button class="date_search" onclick="DateTime()">Find Services</button>
@@ -70,7 +70,8 @@
 
 
     <div>
-    <ul class="middle" id="services_available">
+    <ul class="middle" id="services_available" style="text-align:center;">
+        <li>testing</li>
     </ul>
     </div>
 

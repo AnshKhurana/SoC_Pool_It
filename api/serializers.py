@@ -54,7 +54,7 @@ class ServiceSerializer(serializers.ModelSerializer):
 		data = serializer(obj, context=self.context).to_representation(obj)
 		data['initiator']=data['initiator']['username']
 		data['service_type']=data['service_type']['name']
-		user=obj.members.get(username=data['initiator'])
+		user=obj.members.get(username=self.context['request'].user)
 		if user:
 			data['is_member']=True
 		else:
@@ -100,7 +100,7 @@ class EventServiceSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model=EventService
-		exclude=['groups','polymorphic_ctype',]
+		exclude=['groups','members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','location','event_type']
 
 

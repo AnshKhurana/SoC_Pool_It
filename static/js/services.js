@@ -5,117 +5,110 @@ var service_type=undefined;
 var group_ids_string=undefined;
 
 
-function ServiceFiltering(){
-	var select=document.getElementsById('services_available');
-	select.innerHTML="";
-	const instance=axios.create({
-		baseURL: 'https://127.0.0.1:8000',
-		timeout: 5000,
-	});
+window.onload=function ServiceFiltering(){
+					var select=document.getElementById("services_available");
+					select.innerHTML=" ";
+//	const axios = require("axios").default;
 
-	instance.get('/api/servicefilter',{
-		params:{
-			service=service_type,
-			group_ids=group_ids_string,
-			start_time=start,
-			end_time=end,
-			text=text,
-		}
-	}).then(
-		function(response){
-			reply=response.data;
-			console.log(reply);
-
-			for (item in reply)
-			{
-				if(reply[item].is_active==true){
-					if(reply[item].service_type in ['Food','Shopping']){
-						if(reply[item].is_member==true){
-							select.innerHTML += "<li> <div>" +
-							"<h3>"reply[item].service_type+" Service</h3>" +
-				 			"<h2>" + reply[item].vendor + "</h2>" +
-							"<p> by " + reply[item].initiator + "</p>" +
-							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
-							"<span> " + reply[item].service_desc + "</span>" +
-							"<button >Already a member</button>"
-							+ " </div> </li>";
+					axios.get("http://127.0.0.1:8000/api/servicefilter/",{
+						params:{
+							service:service_type,
+							group_ids:group_ids_string,
+							start_time:start,
+							end_time:end,
+							text:text
 						}
+					}).then(
+						function(response){
+							reply=response.data;
+							console.log(reply);
 
-						else{
-							{#here, reply[item] is our service object, can access fields directly,#}
-							select.innerHTML += "<li> <div>" +
-							"<h3>"reply[item].service_type+" Service</h3>" +
-							"<h2>" + reply[item].vendor + "</h2>" +
-							"<p> by " + reply[item].initiator + "</p>" +
-							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
-							"<span> " + reply[item].service_desc + "</span>" +
-							"<button onclick=\"join_service(" + reply[item].service_id + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>"
-							+ "</div> </li>";
-						}
-					}
+							for (item in reply){
+								if(reply[item].is_active==true){
+									if(reply[item].service_type in ['Food','Shopping']){
+										if(reply[item].is_member==true){
+											select.innerHTML += "<li> <div>" +
+											"<h3>" + reply[item].service_type+" Service</h3>" +
+				 							"<h2>" + reply[item].vendor + "</h2>" +
+											"<p> by " + reply[item].initiator + "</p>" +
+											"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
+											"<span> " + reply[item].service_desc + "</span>" +
+											"<button >Already a member</button>"
+											+ " </div> </li>";
+										}
 
-					if(reply[item].service_type=='Event'){
-						if(reply[item].is_member==true){
-							select.innerHTML += "<li><div>" +
-							"<h3>Event Service</h3>" +
-				 			"<h2>" + reply[item].event_type + "</h2>" +
-							"<h5>at " + reply[item].location + "</h5>"
-							"<p> by " + reply[item].initiator + "</p>" +
-							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
-							"<span> " + reply[item].service_desc + "</span>" +
-							"<button >Already a member</button>"
-							+ "</div> </li>";
-						}
+										else{
+											select.innerHTML += "<li> <div>" +
+											"<h3>" + reply[item].service_type+" Service</h3>" +
+											"<h2>" + reply[item].vendor + "</h2>" +
+											"<p> by " + reply[item].initiator + "</p>" +
+											"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
+											"<span> " + reply[item].service_desc + "</span>" +
+											"<button onclick=\"join_service(" + reply[item].service_id + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>"
+											+ "</div> </li>";
+										}
+									}
 
-						else{
-							{#here, reply[item] is our service object, can access fields directly,#}
-							select.innerHTML += "<li><div>" +
-							"<h3>Event Service</h3>" +
-							"<h2>" + reply[item].event_type + "</h2>" +
-							"<p> by " + reply[item].initiator + "</p>" +
-							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
-							"<span> " + reply[item].service_desc + "</span>" +
-							"<button onclick=\"join_service(" + reply[item].service_id + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>"
-							+ "</div> </li>";
-						}
-					}
+									if(reply[item].service_type=='Event'){
+										if(reply[item].is_member==true){
+											select.innerHTML += "<li><div>" +
+											"<h3>Event Service</h3>" +
+				 							"<h2>" + reply[item].event_type + "</h2>" +
+											"<h5>at " + reply[item].location + "</h5>"
+											"<p> by " + reply[item].initiator + "</p>" +
+											"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
+											"<span> " + reply[item].service_desc + "</span>" +
+											"<button >Already a member</button>"
+											+ "</div> </li>";
+										}
 
-					if(reply[item].service_type=='Travel'){
-						if(reply[item].is_member==true){
-							select.innerHTML += "<li><div>" +
-							"<h3>Travel Service</h3>" +
-				 			"<h5>via " + reply[item].travel + "</h5>" +
-							"<h4><p>From: " + reply[item].start_point + "<br> To: " + reply[item].end_point + "</p></h4>"
-							"<p> by " + reply[item].initiator + "</p>" +
-							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
-							"<span> " + reply[item].service_desc + "</span>" +
-							"<button >Already a member</button>"
-							+ "</div> </li>";
-						}
+										else{
+											select.innerHTML += "<li><div>" +
+											"<h3>Event Service</h3>" +
+											"<h2>" + reply[item].event_type + "</h2>" +
+											"<p> by " + reply[item].initiator + "</p>" +
+											"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
+											"<span> " + reply[item].service_desc + "</span>" +
+											"<button onclick=\"join_service(" + reply[item].service_id + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>"
+											+ "</div> </li>";
+										}
+									}
 
-						else{
-							{#here, reply[item] is our service object, can access fields directly,#}
-							select.innerHTML += "<li><div>" +
-							"<h3>Travel Service</h3>" +
-							"<h2>" + reply[item].travel + "</h2>" +
-							"<h4><p>From: " + reply[item].start_point + "<br> To: " + reply[item].end_point + "</p></h4>"
-							"<p> by " + reply[item].initiator + "</p>" +
-							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
-							"<span> " + reply[item].service_desc + "</span>" +
-							"<button onclick=\"join_service(" + reply[item].service_id + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>"
-							+ "</div> </li>";
-						}
-					}
+									if(reply[item].service_type=='Travel'){
+										if(reply[item].is_member==true){
+											select.innerHTML += "<li><div>" +
+											"<h3>Travel Service</h3>" +
+				 							"<h5>via " + reply[item].transport + "</h5>" +
+											"<h4><p>From: " + reply[item].start_point + "<br> To: " + reply[item].end_point + "</p></h4>"
+											"<p> by " + reply[item].initiator + "</p>" +
+											"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
+											"<span> " + reply[item].service_desc + "</span>" +
+											"<button >Already a member</button>"
+											+ "</div> </li>";
+										}
+
+										else{
+											select.innerHTML += "<li><div>" +
+											"<h3>Travel Service</h3>" +
+											"<h5>" + reply[item].transport + "</h5>" +
+											"<h4><p>From: " + reply[item].start_point + "<br> To: " + reply[item].end_point + "</p></h4>"
+											"<p> by " + reply[item].initiator + "</p>" +
+											"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
+											"<span> " + reply[item].service_desc + "</span>" +
+											"<button onclick=\"join_service(" + reply[item].service_id + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>"
+											+ "</div> </li>";
+										}
+									}
 					
-				}
-			}
+								}
+							}
 
-		}).catch(function(error){
-			//handle error
-			alert(error);
-			console.log(error.toJSON()); 
-		})
-}
+						}).catch(function(error){
+							//handle error
+							alert(error);
+							console.log(error.toJSON()); 
+						})
+				}
 
 
 function join_service(service_id){
@@ -126,22 +119,23 @@ function join_service(service_id){
 	}
 
 	if(btn.innerHTML=='Join Service'){
-	axios.get('/api/addservicemember/',{
-		params:{
-			id=service_id,
-		}
-	}).then(
-		function(response){
-			reply=response.data;
-			console.log(reply);
-			if(reply.message=='Successfully joined the service'){
-				btn.innerHTML="Already a member";
+//		const axios = require('axios').default;
+		axios.get('http://127.0.0.1:8000/api/addservicemember/',{
+			params:{
+				id:service_id,
 			}
+		}).then(
+			function(response){
+				reply=response.data;
+				console.log(reply);
+				if(reply.message=='Successfully joined the service'){
+					btn.innerHTML="Already a member";
+				}
 
-			else{
-				btn.innerHTML="Service ended"
-			}
-		})
+				else{
+					btn.innerHTML="Service ended"
+				}
+			})
 	}
 }
 
@@ -152,7 +146,7 @@ function DateTime(){
 	if (start==undefined || start=="" ){
 		start = undefined;
 	}
-	else if ( end==undefined || end=="" ){
+	if ( end==undefined || end=="" ){
 		end=undefined;
 	}
 	
@@ -185,13 +179,20 @@ function group_filter() {
     let group_ids_string = "";
 
     for(var i=0; i<list.length; i++){
-		group_ids_string += String(list[i].id)+" ";
+		group_ids_string += String(list[i].value)+" ";
 	}
 
     if(group_ids_string==""){
 		group_ids_string=undefined;
 	}
     ServiceFiltering();
+}
+
+function groups_filter(){
+	var list=getElementsByClassName('group')
+	for (var i=0;i<list.length; i++){
+		list[i].innerHTML='HOOYAH!'
+	}
 }
 
 
