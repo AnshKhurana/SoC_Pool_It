@@ -25,7 +25,7 @@ window.onload=function ServiceFiltering(){
 
 							for (item in reply){
 								if(reply[item].is_active==true){
-									if(reply[item].service_type in ['Food','Shopping']){
+									if(reply[item].service_type=='Food' || reply[item].service_type=='Shopping'){
 										if(reply[item].is_member==true){
 											select.innerHTML += "<li> <div>" +
 											"<h3>" + reply[item].service_type+" Service</h3>" +
@@ -99,7 +99,28 @@ window.onload=function ServiceFiltering(){
 											+ "</div> </li>";
 										}
 									}
-					
+
+									if(reply[item].service_type=="Other"){
+										if(reply[item].is_member==true){
+											select.innerHTML += "<li> <div>" +
+											"<h3>Other Service</h3>" +
+											"<p> by " + reply[item].initiator + "</p>" +
+											"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
+											"<span> " + reply[item].service_desc + "</span>" +
+											"<button >Already a member</button>"
+											+ " </div> </li>";
+										}
+
+										else{
+											select.innerHTML += "<li> <div>" +
+											"<h3>Other Service</h3>" +
+											"<p> by " + reply[item].initiator + "</p>" +
+											"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
+											"<span> " + reply[item].service_desc + "</span>" +
+											"<button onclick=\"join_service(" + reply[item].service_id + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>"
+											+ "</div> </li>";
+										}
+									}
 								}
 							}
 
@@ -188,12 +209,6 @@ function group_filter() {
     ServiceFiltering();
 }
 
-function groups_filter(){
-	var list=getElementsByClassName('group')
-	for (var i=0;i<list.length; i++){
-		list[i].innerHTML='HOOYAH!'
-	}
-}
 
 
 
