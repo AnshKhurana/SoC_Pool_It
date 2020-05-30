@@ -44,11 +44,12 @@
 #main{
     position: absolute;
     top: 5%;
-    right: 5%;
-    bottom: 5%;
-    left: 30%;
+    right: 3%;
+    bottom: 3%;
+    left: 28%;
     background: lightgray;
     border-radius: 4px;
+    overflow: auto;
 }
 
 html{
@@ -60,7 +61,7 @@ html{
     width: 80%;
     height: 75%;
     border: none;
-    background-color: paleturquoise;
+    background-color: yellow;
     text-align: center;
     font-size: 1.5em;
 }
@@ -76,12 +77,39 @@ html{
 }
 
 li{
-    border: 1% solid #ddd;
-    margin-top: 1%;
-    background-color: red;
+    border: 3% solid gray;
+    margin: 1%;
+    background-color: #f6f6f6;
     padding: 4%;
     text-decoration: none;
     font-size: 1em;
     color: black;
     display: block;
+}
+
+h3{
+    width: 50%;
+    font-style: normal;
+}
+
+#services_available button{
+    float: right;
+}
+
+cite{
+    color: gray;
+    font-style: normal;
+    font-size: 0.75em;
+}
+
+#services_available p{
+    color: rgb(45, 103, 122);
+}
+
+#services_available span{
+    color: rgb(46, 44, 44);
+}
+
+span.group_id{
+    visibility: hidden;
 }
