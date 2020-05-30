@@ -100,7 +100,7 @@ class EventServiceSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model=EventService
-		exclude=['groups','polymorphic_ctype',]
+		exclude=['groups','polymorphic_ctype', 'members',]
 		read_only_fields=['initiator','service_type','start_time','location','event_type']
 
 
