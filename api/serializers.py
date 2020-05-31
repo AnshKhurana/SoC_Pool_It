@@ -16,6 +16,12 @@ class CategorySerializer(serializers.ModelSerializer):
 		model=Category
 		fields=['name']
 
+class GroupSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model=group
+		fields=['name']
+
 
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -54,7 +60,7 @@ class ServiceSerializer(serializers.ModelSerializer):
 		data = serializer(obj, context=self.context).to_representation(obj)
 		data['initiator']=data['initiator']['username']
 		data['service_type']=data['service_type']['name']
-		user=obj.members.get(username=self.context['request'].user)
+		user=self.context['user']
 		if user:
 			data['is_member']=True
 		else:
@@ -76,10 +82,11 @@ class ServiceSerializer(serializers.ModelSerializer):
 class FoodServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
+	groups=GroupSerializer(many=True, allow_null=False)
 
 	class Meta:
 		model=FoodService
-		exclude=['groups','members','polymorphic_ctype',]
+		exclude=['members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','vendor']
 
 
@@ -87,39 +94,43 @@ class FoodServiceSerializer(serializers.ModelSerializer):
 class ShoppingServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
+	groups=GroupSerializer(many=True, allow_null=False)
 
 	class Meta:
 		model=ShoppingService
-		exclude=['groups','members','polymorphic_ctype',]
+		exclude=['members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','vendor']
 
 
 class EventServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
+	groups=GroupSerializer(many=True, allow_null=False)
 
 	class Meta:
 		model=EventService
-		exclude=['groups','members','polymorphic_ctype',]
+		exclude=['members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','location','event_type']
 
 
 class TravelServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
+	groups=GroupSerializer(many=True, allow_null=False)
 
 	class Meta:
 		model=TravelService
-		exclude=['groups','members','polymorphic_ctype',]
+		exclude=['members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','start_point','end_point','transport']
 
 
 class OtherServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
+	groups=GroupSerializer(many=True, allow_null=False)
 
 	class Meta:
 		model=OtherService
-		exclude=['groups','members','polymorphic_ctype',]
+		exclude=['members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time']
 

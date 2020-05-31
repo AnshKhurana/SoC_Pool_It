@@ -7,8 +7,6 @@
     <title>Services available</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/service.css' %}">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="{% static 'js/services.js' %}"></script>
 </head>
 <body>
     
@@ -33,22 +31,22 @@
     <div class="filter">
         <h2 class='filter_heading'>Category</h2>
         <div class='checkbox'>
-            <label><input type="checkbox" onchange="categories('all')">All</label>
+            <label><input type="radio"  onchange="categories()" name="category" value="Shopping">Shopping</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onchange="categories('Shopping')">Shoppin</label>
+            <label><input type="radio"  onchange="categories()" name="category" value="Food">Food</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onchange="categories('Food')">Food</label>
+            <label><input type="radio"  onchange="categories()" name="category" value="Travel">Travel</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onchange="categories('Travel')">Trave</label>
+            <label><input type="radio"  onchange="categories()" name="category" value="Event">Event</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onchange="categories('Event')">Even</label>
+            <label><input type="radio"  onchange="categories()" name="category" value="Other">Other</label>
         </div>
         <div class='checkbox'>
-            <label><input type="checkbox"  onchange="categories('Other')">Other</label>
+            <label><input type="radio"  onchange="categories()" name="category" value="All">All</label>
         </div>
     </div>
 
@@ -72,5 +70,7 @@
     <div>
     <ul class="middle" id="services_available" style="text-align:center;"></ul>
     </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{% static 'js/services.js' %}"></script>
 </body>
 </html>

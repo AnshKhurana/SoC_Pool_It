@@ -1,5 +1,5 @@
 from main.models import service
-from django.db.models import Q
+from django.db.models import Q,Case,When
 from django.utils import timezone
 from .serializers import *
 from rest_framework import generics,mixins,permissions,authentication,filters
@@ -20,23 +20,28 @@ class servicefilterview(generics.ListAPIView):
 	def get_queryset(self):
 		
 		Service=self.request.GET.get('service',None)
+		print(Service)
 		Start_time=self.request.GET.get('start_time',None)
+		print(Start_time)
 		End_time=self.request.GET.get('end_time',None)
+		print(End_time)
 		Groups=self.request.GET.get('group_ids',None)
+		print(Groups)
 		Text=self.request.GET.get('text',None)
+		print(Text)
 		filt=Q(groups__members=self.request.user)
 		
 		#queryset=service.objects.filter(members=self.request.user)
 		
-		if Service:
-#			queryset=queryset.filter(service_type__name=Service)
-			filt=filt&Q(service_type__name=Service)
+		if Service :
+			if Service!='All':
+				#queryset=queryset.filter(service_type__name__in=Services)
+				filt=filt&Q(service_type__name=Service)
 
 		if Groups:
-			Groups=''.join(Groups.split(' ')).split(',')
-			#queryset=queryset.filter(groups__group_id__in=Groups)
+			Groups=Groups.split(" ")
+			#queryset=queryset.filter(groups__group_id__in=Groups).distinct()
 			filt=filt&Q(groups__group_id__in=Groups)
-			#queryset=queryset.distinct()
 		
 		if Start_time:
 			#queryset=queryset.filter(start_time__gte=Start_time)
@@ -47,13 +52,23 @@ class servicefilterview(generics.ListAPIView):
 			filt=filt&Q(end_time__lte=End_time)
 
 		if Text:
-			
-			if Service in ['Food','Shopping']:
+
+			if service in ['Food','Shopping']:
 				filt=filt&(Q(service_desc__icontains=Text)|Q(initiator__username__icontains=Text)|Q(vendor__icontains=Text))
+				
 			else:
 				filt=filt&(Q(service_desc__icontains=Text)|Q(initiator__username__icontains=Text))
+		
+		
 		queryset=service.objects.filter(filt).distinct().all()
+		
 		return queryset
+
+
+	def list(self,request):
+		queryset=self.get_queryset()
+		serializer=ServiceSerializer(queryset,many=True,context={'user':request.user})
+		return Response(serializer.data)
 
 	
 @api_view(['GET'])
