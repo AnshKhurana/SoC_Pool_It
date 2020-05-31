@@ -44,7 +44,7 @@ function ServiceFiltering(){
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
 							"<span> " + reply[item].service_desc + "</span>" +
-							"<button onclick=\"join_service(" + reply[item].service_id + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>" +
+							"<button onclick=\"join_service(" + "'" + reply[item].service_id + "'" + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>" +
 							"</div> </li>";
 						}
 					}
@@ -70,7 +70,7 @@ function ServiceFiltering(){
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
 							"<span> " + reply[item].service_desc + "</span>" +
-							"<button onclick=\"join_service(" +reply[item].service_id + ")\" id=" +reply[item].service_id + "\">Join Service</button>" +
+							"<button onclick=\"join_service(" + "'" + reply[item].service_id + "'" + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>" +
 							"</div> </li>";
 						}
 					}
@@ -96,7 +96,7 @@ function ServiceFiltering(){
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
 							"<span> " + reply[item].service_desc + "</span>" +
-							"<button onclick=\"join_service(" + reply[item].service_id + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>" +
+							"<button onclick=\"join_service(" + "'" + reply[item].service_id + "'" + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>" +
 							"</div> </li>";
 						}
 					}
@@ -118,7 +118,7 @@ function ServiceFiltering(){
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
 							"<span> " + reply[item].service_desc + "</span>" +
-							"<button onclick=\"join_service(" + reply[item].service_id + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>" +
+							"<button onclick=\"join_service(" + "'" + reply[item].service_id + "'" + ")\" id=\"" + reply[item].service_id + "\">Join Service</button>" +
 							"</div> </li>";
 						}
 					}
@@ -133,8 +133,11 @@ function ServiceFiltering(){
 }
 
 
+////////////////////////////////////////////////////////////////////////////
+
+
 function join_service(service_id){
-	var btn=getElementById(service_id);
+	var btn=document.getElementById(service_id);
 
 	if(btn.innerHTML==='Already a member'){
 		alert("You are already a member of this service")
@@ -160,6 +163,10 @@ function join_service(service_id){
 	}
 }
 
+
+////////////////////////////////////////////////////////////////////////////
+
+
 function DateTime(){
 	start=document.getElementById("from").value;
 	end=document.getElementById("until").value;
@@ -174,6 +181,10 @@ function DateTime(){
 	ServiceFiltering();
 }
 
+
+////////////////////////////////////////////////////////////////////////////
+
+
 function search_service(){
 	text=document.getElementById("myInput").value;
 	
@@ -183,6 +194,10 @@ function search_service(){
 
 	ServiceFiltering();
 }
+
+
+////////////////////////////////////////////////////////////////////////////
+
 
 categories()
 function categories(){
@@ -195,29 +210,31 @@ function categories(){
 	else {
 		service_type=undefined;
 	}
-	console.log(service_type);
 	ServiceFiltering();
 }
 
+
+////////////////////////////////////////////////////////////////////////////
 
 
 function group_filter() {
 	var list = document.querySelectorAll(`input[name="group"]:checked`);
-	let group_ids_string ="";
+	var group_ids_arr =[];
 
 	for(var i=0; i<list.length; i++){
-		group_ids_string+=String(list[i].value) + " ";
+		group_ids_arr.push(list[i].value);
 	}
 
-	
-	if(group_ids_string===""){	
+	if(group_ids_arr===[]){	
 		group_ids_string=undefined;
 	}
-	console.log(group_ids_string);
+
+	else{
+		group_ids_string=group_ids_arr.toString();
+	}
 
 	ServiceFiltering();
 }
 
 
-
-
+////////////////////////////////////////////////////////////////////////////

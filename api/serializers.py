@@ -9,6 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 		model=User
 		fields=['username']
 
+#-------------------------------------------------------------------------------------------------------#
 
 class CategorySerializer(serializers.ModelSerializer):
 
@@ -16,13 +17,7 @@ class CategorySerializer(serializers.ModelSerializer):
 		model=Category
 		fields=['name']
 
-class GroupSerializer(serializers.ModelSerializer):
-
-	class Meta:
-		model=group
-		fields=['name']
-
-
+#-------------------------------------------------------------------------------------------------------#
 
 class ServiceSerializer(serializers.ModelSerializer):
 
@@ -61,13 +56,13 @@ class ServiceSerializer(serializers.ModelSerializer):
 		data['initiator']=data['initiator']['username']
 		data['service_type']=data['service_type']['name']
 		user=self.context['user']
-		if user:
+		if user in obj.members.all():
 			data['is_member']=True
 		else:
 			data['is_member']=False
 		return data
 
-	def to_internal_value(self, data):
+	'''def to_internal_value(self, data):
 
 		try:
 			serializer = self.get_serializer_map()[data['service_type']]
@@ -77,62 +72,61 @@ class ServiceSerializer(serializers.ModelSerializer):
 			})
 
 		validated_data = serializer(context=self.context).to_internal_value(data)
-		return validated_data
+		return validated_data'''
+
+#-------------------------------------------------------------------------------------------------------#
 
 class FoodServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
-	groups=GroupSerializer(many=True, allow_null=False)
 
 	class Meta:
 		model=FoodService
-		exclude=['members','polymorphic_ctype',]
+		exclude=['groups','members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','vendor']
 
-
+#-------------------------------------------------------------------------------------------------------#
 
 class ShoppingServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
-	groups=GroupSerializer(many=True, allow_null=False)
 
 	class Meta:
 		model=ShoppingService
-		exclude=['members','polymorphic_ctype',]
+		exclude=['groups','members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','vendor']
 
+
+#-------------------------------------------------------------------------------------------------------#
 
 class EventServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
-	groups=GroupSerializer(many=True, allow_null=False)
 
 	class Meta:
 		model=EventService
-		exclude=['members','polymorphic_ctype',]
+		exclude=['groups','members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','location','event_type']
 
+#-------------------------------------------------------------------------------------------------------#
 
 class TravelServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
-	groups=GroupSerializer(many=True, allow_null=False)
 
 	class Meta:
 		model=TravelService
-		exclude=['members','polymorphic_ctype',]
+		exclude=['groups','members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','start_point','end_point','transport']
 
-
+#-------------------------------------------------------------------------------------------------------#
 class OtherServiceSerializer(serializers.ModelSerializer):
 	initiator=UserSerializer(allow_null=False)
 	service_type=CategorySerializer(allow_null=False)
-	groups=GroupSerializer(many=True, allow_null=False)
 
 	class Meta:
 		model=OtherService
-		exclude=['members','polymorphic_ctype',]
+		exclude=['groups','members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time']
 
-
-
+#-------------------------------------------------------------------------------------------------------#

@@ -13,42 +13,29 @@ from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 class servicefilterview(generics.ListAPIView):
-	serializer_class       =ServiceSerializer
-#	authentication_classes =[BasicAuthentication]
-#	permission_classes     =[IsAuthenticated]
+	serializer_class=ServiceSerializer
 	
 	def get_queryset(self):
 		
 		Service=self.request.GET.get('service',None)
-		print(Service)
 		Start_time=self.request.GET.get('start_time',None)
-		print(Start_time)
 		End_time=self.request.GET.get('end_time',None)
-		print(End_time)
 		Groups=self.request.GET.get('group_ids',None)
-		print(Groups)
 		Text=self.request.GET.get('text',None)
-		print(Text)
-		filt=Q(groups__members=self.request.user)
-		
-		#queryset=service.objects.filter(members=self.request.user)
+		filt=Q(groups__members=self.request.user)&Q(is_active=True)
 		
 		if Service :
 			if Service!='All':
-				#queryset=queryset.filter(service_type__name__in=Services)
 				filt=filt&Q(service_type__name=Service)
 
 		if Groups:
-			Groups=Groups.split(" ")
-			#queryset=queryset.filter(groups__group_id__in=Groups).distinct()
+			Groups=''.join(Groups.split(' ')).split(',')
 			filt=filt&Q(groups__group_id__in=Groups)
 		
 		if Start_time:
-			#queryset=queryset.filter(start_time__gte=Start_time)
 			filt=filt&Q(start_time__gte=Start_time)
 
 		if End_time:
-			#queryset=queryset.filter(end_time__lte=End_time)
 			filt=filt&Q(end_time__lte=End_time)
 
 
@@ -68,7 +55,7 @@ class servicefilterview(generics.ListAPIView):
 			
 			elif Service=='Travel':
 				queryset=TravelService.objects.filter(filt&Q(service_desc__icontains=Text)|Q(initiator__username__icontains=Text)|\
-					Q(transport__icontains=Text|Q(start_point__icontains=Text|Q(end_point__icontains=Text)))).distinct().all()
+					Q(transport__icontains=Text)|Q(start_point__icontains=Text)|Q(end_point__icontains=Text)).distinct().all()
 		
 			else:
 				queryset=service.objects.filter(filt&Q(service_desc__icontains=Text)|Q(initiator__username__icontains=Text)).distinct().all()
@@ -84,6 +71,8 @@ class servicefilterview(generics.ListAPIView):
 		return Response(serializer.data)
 
 	
+
+
 @api_view(['GET'])
 def add_service_member(request):
 	service_id=request.GET.get('id',None)
@@ -92,4 +81,7 @@ def add_service_member(request):
 		Service.members.add(request.user)
 		return Response({'message':'Successfully joined the service'})
 	else:
+		Service.is_active=False
+		print(Service.is_active)
+		Service.save()
 		return Response({'message':'Service has Ended'})
