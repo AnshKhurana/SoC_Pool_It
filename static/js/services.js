@@ -196,7 +196,6 @@ function categories(){
 		service_type=undefined;
 	}
 	console.log(service_type);
-	
 	ServiceFiltering();
 }
 

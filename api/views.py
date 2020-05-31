@@ -64,7 +64,6 @@ class servicefilterview(generics.ListAPIView):
 		
 		return queryset
 
-
 	def list(self,request):
 		queryset=self.get_queryset()
 		serializer=ServiceSerializer(queryset,many=True,context={'user':request.user})
