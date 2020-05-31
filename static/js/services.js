@@ -187,10 +187,12 @@ function search_service(){
 
 categories("all")
 function categories(c){
+	var checkbox=document.getElementByClassName("CatCheck");
 	service_type = String(c);
 	if (service_type=="all"){
 		service_type=undefined;
 	}
+	if(checked.checked== true)
 	ServiceFiltering();
 }
 

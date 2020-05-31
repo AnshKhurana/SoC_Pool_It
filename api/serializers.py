@@ -24,7 +24,7 @@ class ServiceSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model=service
-		exclude=['groups','polymorphic_ctype',]
+		exclude=['polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time']
 
 
@@ -79,7 +79,7 @@ class FoodServiceSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model=FoodService
-		exclude=['groups','members','polymorphic_ctype',]
+		exclude=['members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','vendor']
 
 
@@ -90,7 +90,7 @@ class ShoppingServiceSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model=ShoppingService
-		exclude=['groups','members','polymorphic_ctype',]
+		exclude=['members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time','vendor']
 
 
@@ -100,7 +100,11 @@ class EventServiceSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model=EventService
+<<<<<<< HEAD
+		exclude=['polymorphic_ctype', 'members',]
+=======
 		exclude=['groups','members','polymorphic_ctype',]
+>>>>>>> e6dd3f4abdb2eeae06e300917fbdc20e330fb765
 		read_only_fields=['initiator','service_type','start_time','location','event_type']
 
 
@@ -120,6 +124,12 @@ class OtherServiceSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model=OtherService
-		exclude=['groups','members','polymorphic_ctype',]
+		exclude=['members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time']
+
+class GroupSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model=groups
+		fields=['name']
 
