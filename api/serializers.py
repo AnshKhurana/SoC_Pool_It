@@ -134,9 +134,5 @@ class OtherServiceSerializer(serializers.ModelSerializer):
 		exclude=['members','polymorphic_ctype',]
 		read_only_fields=['initiator','service_type','start_time']
 
-class GroupSerializer(serializers.ModelSerializer):
 
-	class Meta:
-		model=groups
-		fields=['name']
 
