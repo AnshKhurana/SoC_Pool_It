@@ -192,7 +192,7 @@ function categories(c){
 	if (service_type=="all"){
 		service_type=undefined;
 	}
-	if(checked.checked== true)
+	if(checkbox.checked== true)
 	ServiceFiltering();
 }
 
