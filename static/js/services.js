@@ -140,26 +140,37 @@ function join_service(service_id){
 	var btn=document.getElementById(service_id);
 
 	if(btn.innerHTML==='Already a member'){
-		alert("You are already a member of this service")
+		alert("You are already a member of this service");
 	}
 
 	if(btn.innerHTML==='Join Service'){
-		axios.get('http://127.0.0.1:8000/api/addservicemember/',{
-			params:{
-				id:service_id,
-			}
-		}).then(
-			function(response){
-				reply=response.data;
-				console.log(reply);
-				if(reply.message==='Successfully joined the service'){
-					btn.innerHTML="Already a member";
+		r=confirm("Are you sure about joining this service?")
+		if (r===true){
+			axios.get('http://127.0.0.1:8000/api/addservicemember/',{
+				params:{
+					id:service_id,
 				}
+			}).then(
+				function(response){
+					reply=response.data;
+					console.log(reply);
+					if(reply.message==='Successfully joined the service'){
+						btn.innerHTML="Already a member";
+						document.getElementById("msg").innerHTML = "You have successfully joined the service";
+						setTimeout(function(){
+    						document.getElementById("msg").innerHTML = '';
+							}, 5000);
+					}
 
-				else{
-					btn.innerHTML="Service ended"
-				}
+					else{
+						btn.innerHTML="Service ended"
+					}
+			}).catch(
+				function(error){
+					alert(error);
+					console.log(error.toJSON());
 			})
+		}
 	}
 }
 
