@@ -1,5 +1,5 @@
-from main.models import service
-from django.db.models import Q,Case,When
+from main.models import service,FoodService,EventService,TravelService,ShoppingService
+from django.db.models import Q
 from django.utils import timezone
 from .serializers import *
 from rest_framework import generics,mixins,permissions,authentication,filters
@@ -51,17 +51,31 @@ class servicefilterview(generics.ListAPIView):
 			#queryset=queryset.filter(end_time__lte=End_time)
 			filt=filt&Q(end_time__lte=End_time)
 
+
 		if Text:
 
-			if service in ['Food','Shopping']:
-				filt=filt&(Q(service_desc__icontains=Text)|Q(initiator__username__icontains=Text)|Q(vendor__icontains=Text))
+			if Service=='Food':
+				queryset=FoodService.objects.filter(filt&Q(service_desc__icontains=Text)|\
+					Q(initiator__username__icontains=Text)|Q(vendor__icontains=Text)).distinct().all()
 				
+			elif Service=='Shopping':
+				queryset=ShoppingService.objects.filter(filt&Q(service_desc__icontains=Text)|\
+					Q(initiator__username__icontains=Text)|Q(vendor__icontains=Text)).distinct().all()
+
+			elif Service=='Event':
+				queryset=EventService.objects.filter(filt&Q(service_desc__icontains=Text)|\
+					Q(initiator__username__icontains=Text)|Q(location__icontains=Text)|Q(event_type__icontains=Text)).distinct().all()
+			
+			elif Service=='Travel':
+				queryset=TravelService.objects.filter(filt&Q(service_desc__icontains=Text)|Q(initiator__username__icontains=Text)|\
+					Q(transport__icontains=Text|Q(start_point__icontains=Text|Q(end_point__icontains=Text)))).distinct().all()
+		
 			else:
-				filt=filt&(Q(service_desc__icontains=Text)|Q(initiator__username__icontains=Text))
-		
-		
-		queryset=service.objects.filter(filt).distinct().all()
-		
+				queryset=service.objects.filter(filt&Q(service_desc__icontains=Text)|Q(initiator__username__icontains=Text)).distinct().all()
+
+		else:
+			queryset=service.objects.filter(filt).distinct().all()
+
 		return queryset
 
 	def list(self,request):
