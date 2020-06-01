@@ -214,16 +214,32 @@ categories()
 function categories(){
 	var category=document.querySelectorAll(`input[name="category"]:checked`);
 	
-	if (category[0]){
-		service_type=category[0].value;
+//	if (category[0]){
+//		service_type=category[0].value;
+//	}
+
+//	else {
+//		service_type=undefined;
+//	}
+//	ServiceFiltering();
+//}
+
+	var categories_arr=[];
+
+	for (var i=0; i<category.length; i++){
+		categories_arr.push(category[i].value);
 	}
 
-	else {
+	if (categories_arr===[]){
 		service_type=undefined;
 	}
-	ServiceFiltering();
-}
 
+	else{
+		service_type=categories_arr.toString();
+	}
+	ServiceFiltering();
+
+}
 
 ////////////////////////////////////////////////////////////////////////////
 

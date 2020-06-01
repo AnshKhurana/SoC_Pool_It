@@ -24,9 +24,14 @@ class servicefilterview(generics.ListAPIView):
 		Text=self.request.GET.get('text',None)
 		filt=Q(groups__members=self.request.user)&Q(is_active=True)
 		
-		if Service :
+		'''if Service :
 			if Service!='All':
-				filt=filt&Q(service_type__name=Service)
+				filt=filt&Q(service_type__name=Service)'''
+
+		if Service:
+			Service=Service.split(",")
+			if not 'All' in Service:
+				filt=filt&Q(service_type__name__in=Service)				
 
 		if Groups:
 			Groups=''.join(Groups.split(' ')).split(',')
@@ -38,8 +43,32 @@ class servicefilterview(generics.ListAPIView):
 		if End_time:
 			filt=filt&Q(end_time__lte=End_time)
 
+		queryset=service.objects.filter(filt).distinct().all()
 
 		if Text:
+
+			for query in queryset:
+				if query.service_type.name in ["Food","Shopping"]:
+					if Text not in query.initiator.username and Text not in query.service_desc and Text not in query.vendor:
+						queryset.exclude(query)
+
+				elif query.service_type.name=="Event":
+					if Text not in query.service_desc and Text not in query.initiator.username\
+					 and Text not in query.event_type and Text not in query.location:
+					 	queryset.exclude(query)
+
+				elif query.service_type.name=="Travel":
+					if Text not in query.service_desc and Text not in query.initiator.username\
+					 and Text not in query.transport and Text not in query.start_point and Text not in query.end_point:
+					 	queryset.exclude(query)
+
+				else:
+					if Text not in query.service_desc and Text not in query.initiator.username:
+						queryset.exclude(query)
+
+
+
+		'''if Text:
 
 			if Service=='Food':
 				queryset=FoodService.objects.filter(filt&Q(service_desc__icontains=Text)|\
@@ -61,7 +90,7 @@ class servicefilterview(generics.ListAPIView):
 				queryset=service.objects.filter(filt&Q(service_desc__icontains=Text)|Q(initiator__username__icontains=Text)).distinct().all()
 
 		else:
-			queryset=service.objects.filter(filt).distinct().all()
+			queryset=service.objects.filter(filt).distinct().all()'''
 
 		return queryset
 
