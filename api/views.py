@@ -92,7 +92,7 @@ class servicefilterview(generics.ListAPIView):
 		else:
 			queryset=service.objects.filter(filt).distinct().all()'''
 
-		return queryset
+		return queryset.order_by('-service_type')
 
 	def list(self,request):
 		queryset=self.get_queryset()

@@ -40,6 +40,7 @@ function ServiceFiltering(){
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li> <div>" +
 							"<h3>" + reply[item].service_type+" Service</h3>" +
+							"<h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: Red;'\"></h4>" +
 							"<h2>" + reply[item].vendor + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
@@ -65,6 +66,7 @@ function ServiceFiltering(){
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li><div>" +
 							"<h3>Event Service</h3>" +
+							"<h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: Red;'\"></h4>" +
 							"<h2>" + reply[item].event_type + "</h2>" +
 							"<h5>at " + reply[item].location + "</h5>" +
 							"<p> by " + reply[item].initiator + "</p>" +
@@ -91,6 +93,7 @@ function ServiceFiltering(){
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li><div>" +
 							"<h3>Travel Service</h3>" +
+							"<h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: Red;'\"></h4>" +
 							"<h4>" + reply[item].transport + "</h4>" +
 							"<h4><p>From: " + reply[item].start_point + "<br> To: " + reply[item].end_point + "</p></h4>" +
 							"<p> by " + reply[item].initiator + "</p>" +
@@ -115,6 +118,7 @@ function ServiceFiltering(){
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li> <div>" +
 							"<h3>Other Service</h3>" +
+							"<h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: Red;'\"></h4>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p>Start Time: " + reply[item].start_time + "<br> End Time: " + reply[item].end_time + "</p> </h4>" +
 							"<span> " + reply[item].service_desc + "</span>" +
@@ -156,10 +160,10 @@ function join_service(service_id){
 					console.log(reply);
 					if(reply.message==='Successfully joined the service'){
 						btn.innerHTML="Already a member";
-						document.getElementById("msg").innerHTML = "You have successfully joined the service";
+						document.getElementById("msg " +service_id).innerHTML = "You have successfully joined the service";
 						setTimeout(function(){
-    						document.getElementById("msg").innerHTML = '';
-							}, 5000);
+    						document.getElementById("msg " + service_id).innerHTML = '';
+							}, 3000);
 					}
 
 					else{
