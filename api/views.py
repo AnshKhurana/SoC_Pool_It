@@ -50,21 +50,21 @@ class servicefilterview(generics.ListAPIView):
 			for query in queryset:
 				if query.service_type.name in ["Food","Shopping"]:
 					if Text not in query.initiator.username and Text not in query.service_desc and Text not in query.vendor:
-						queryset.exclude(query)
+						queryset = queryset.exclude(service_id=query.service_id)
 
 				elif query.service_type.name=="Event":
 					if Text not in query.service_desc and Text not in query.initiator.username\
 					 and Text not in query.event_type and Text not in query.location:
-					 	queryset.exclude(query)
+					 	queryset = queryset.exclude(service_id=query.service_id)
 
 				elif query.service_type.name=="Travel":
 					if Text not in query.service_desc and Text not in query.initiator.username\
 					 and Text not in query.transport and Text not in query.start_point and Text not in query.end_point:
-					 	queryset.exclude(query)
+					 	queryset = queryset.exclude(service_id=query.service_id)
 
 				else:
 					if Text not in query.service_desc and Text not in query.initiator.username:
-						queryset.exclude(query)
+						queryset = queryset.exclude(service_id=query.service_id)
 
 
 
