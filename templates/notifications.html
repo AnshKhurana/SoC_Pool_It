@@ -6,30 +6,33 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Chat Room</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    
+    <link rel='stylesheet' type='text/css' media='screen' href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
    
-   
-
 </head>
 <body>
     
-                                <div>
-                                    {% for object in obj_list %}
-                                    
-                                            <div>
-                                                <h4>{{ object.timestamp }}</h4>
-                                                <h5>message from {{ object.user }}</h5>
-                                                <span>{{ object.content }}</span>
-                                                <input class="btn btn-success" type="button" value="Delete" onclick="location.href='{{object.id}}/deleteone' " />
-                                            </div>
-                                    {% endfor %}
-                                </div>
-                                <div>
-                                    {% if obj_list%}
-                                    <input class="btn btn-success" type="button" value="Delete All" onclick="location.href='deleteall' " />
-                                    {% endif %}
-                                </div>
-                                </div>
+<div>
+{% for object in obj_list %}
+    
+<div>
+    <h4>{{ object.timestamp }}</h4>
+    <h5>message from {{ object.user }}</h5>
+    <span>{{ object.content }}</span>
+    <input class="btn btn-success" type="button" value="Delete" onclick="location.href='{{object.id}}/deleteone' " />
+</div>
+{% endfor %}
+</div>
+<div>
+    {% if obj_list%}
+    <input class="btn btn-success" type="button" value="Delete All" onclick="location.href='deleteall' " />
+    {% endif %}
+</div>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     
 </body>
 </html>
