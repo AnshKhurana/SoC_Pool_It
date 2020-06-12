@@ -6,35 +6,37 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Chat Room</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    
-   
-    
-    
-
+     <link rel='stylesheet' type='text/css' media='screen' href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container">
 {% if obj_list %}
 <h3> You are a member of following services:</h3>  
 {% else %}
 <h3> You are not a member of any service</h3>
 {% endif %}
-  
+</div>  
                                                     
-                                    {% for object in obj_list %}
-                                    
-                                            <h1><strong>{{ object.service_type }}</strong></h1><br/>
-                                            
-                                            <em>Initiator:   {{ object.initiator }}</em><br/>
-    
-                                            <span>Start-Time:  {{ object.start_time }}</span><br/>
-                                            <span>End-Time:   {{ object.end_time }}</span><br/>
-                                            <a href = "/chat/{{object.service_id}}/chatroom/">Goto chat</a><br/>
-                                            
-                                    
-                                    {% endfor %}
+{% for object in obj_list %}
+<div class="container">
+<div class="jumbotron ">
+<h1><strong>{{ object.service_type }}</strong></h1><br/>
+
+<span>Initiator:   {{ object.initiator }}</span><br><br>
+
+<span>Start-Time:  {{ object.start_time }}</span><br/>
+<span>End-Time:   {{ object.end_time }}</span><br/><br/>
+<a class="btn btn-primary" href = "/chat/{{object.service_id}}/chatroom/">Goto chat</a><br/>
+</div> 
+</div> 
+
+
+{% endfor %}
                                 
-                                
-   
-   
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>                      
 </body>
 </html>

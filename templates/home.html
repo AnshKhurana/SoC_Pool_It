@@ -6,47 +6,95 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Home</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/main.css' %}">
+    <link rel='stylesheet' type='text/css' media='screen' href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="{% static 'js/main.js' %}"></script>
 </head>
 <body>
 
     {% if user.is_authenticated %}
-    <li>Hello, {{user.first_name}}</li>
-    <li><a href='signout'>Sign Out</a></li>
-    <li><a href="change_password">Change Password</a></li>
-    <li><a href="update_details">Update Details</a></li>
-    <li><a href="/services/servicegroups">create new service</a></li>
-    <li><a href="group/group_creation">Create a group</a></li>
-    <li><a href="/services/services_available">Services Available</a></li>
-    <br>
-    <li><a href="/chat/servicelist">Go to service chat</a></li>
-    <br><a href="/chat/notify">See all notifications</a>
-    {% for group in user.joined_groups.all %}
-        <table>
-            <tr>
-                <td>{{group}}</td>
-                <td>{{group.hash}}</td>
-            </tr>
-        </table>
-    {% endfor %}
-
-    {% for message in messages %}
-    <p>{{message}}</p>
-    {% endfor %}
-     <form action="group/join_group" method="POST">
-        {% csrf_token %}
-        <input name="code" type="text" placeholder="Invitation Code"><br>
-        <button type="submit">
-            Join
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Pool It!</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" >
+        <span class="navbar-toggler-icon"></span>s
         </button>
-    </form>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/services/services_available">Services available</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/chat/servicelist">Go to service chat</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+              Create New
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/services/servicegroups">Service</a>
+              <a class="dropdown-item" href="group/group_creation">Group</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/chat/notify">See all notifications</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle dropleft" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+              User
+            </a>
+            <div class="dropdown-menu right" aria-labelledby="navbarDropdown" >
+              <a class="dropdown-item" href="change_password">Change Password</a>
+              <a class="dropdown-item" href="update_details">Update Details</a>
+               <a class="dropdown-item" href="signout">Sign Out</a>
+            </div>
+          </li>
+        </ul>
+        </div>
+        </nav>
+        <br>
+        <div class="container">
+        <h2>Hello, {{user.first_name}}</h2>
+        </div>
+        <br>
+        <div class="container">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Group name</th>
+                    <th>Group hash</th>
+                </tr>
+            </thead>
+        {% for group in user.joined_groups.all %}
+                <tr>
+                    <td>{{group}}</td>
+                    <td>{{group.hash}}</td>
+                </tr> 
+        {% endfor %}
+            </table>
+        </div>
+        <div class="container">
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+         <form action="group/join_group" method="POST" class="form-inline">
+            {% csrf_token %}
+            <input name="code" type="text" placeholder="Invitation Code">
+            <button type="submit" class="btn btn-dark ">
+                Join
+            </button>
+        </form>
+    </div>
 
     {% endif %}
-<script>
+    <script>
     if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
     }
-</script>
+    </script>
+    <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
 </body>
 </html>

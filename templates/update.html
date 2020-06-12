@@ -6,15 +6,41 @@
     <title>update details</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src='main.js'></script>
 </head>
 <body>
+    <br>
+    <br>
+    <div class="container jumbotron ">
+    <div class="container">
+    <h1>Update Details</h1>
+    </div>
+        <div class="container">
     <form method="POST">
+         <div class="container">
         {% csrf_token %}
-        <input name='username' placeholder="username" type="text" value={{user.username}}>
-        <input name='first_name' placeholder="First Name" type="text" value={{user.first_name}}>
-        <input name='last_name' placeholder="Last Name" type="text" value={{user.last_name}}>
-        <button type="submit">Update</button>
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input name='username' class="form-control" placeholder="username" type="text" value={{user.username}}>
+    </div> 
+    <div class="form-group"> 
+        <label for="first_name">First name:</label>
+        <input name='first_name' class="form-control" placeholder="First Name" type="text" value={{user.first_name}}>    
+    </div>
+    <div class="form-group">
+        <label for="last_name">Last Name:</label>
+        <input name='last_name' class="form-control" placeholder="Last Name" type="text" value={{user.last_name}}> 
+    </div>
+        <button type="submit" class="btn btn-info">Update</button>
+    </div>
     </form>
+</div>
+</div>
+    <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js">
 </body>
 </html>
