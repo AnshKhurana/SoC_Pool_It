@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Creating Service </title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/servicegroup.css' %}" >
+    <link rel='stylesheet' type='text/css' media='screen' href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
 	<div class = "servicegroupsform" >
@@ -15,26 +15,37 @@
 	{%if error_message%}
 		<h2>{{error_message}}</h2>
 	{%else%}
+<div class="container">
 		<form action="/services/servicegroups/" method='POST'>
-			{% csrf_token %}
+	<div class="jumbotron container">
+		{% csrf_token %}
 			{{form.non_field_errors}}
 			<div class="groups" >
 				{{form.groups_list.errors}}
 				{{form.groups_list.label_tag}}
 				{{form.groups_list}}
 			</div>
+	</div>
+	<div class="jumbotron container">
 			<div class="category" >
 				{{form.category.errors}}
 				{{form.category.label_tag}}
 				{{form.category}}
 			</div>
+	</div>
 			<br>
-		<div class="button">	
-			<input type='submit' value='next' style ="background-color:#4CAF50; color: white; height: 30px; width: 80px; font-size: 100%;" >
-		</div>
+			<div class="container">
+		<input type='submit' class="btn btn-success" value='Next' >
+	</div>
 		</form>
 	{%endif%}
+</div>
 	</div>
 	</div>
+	<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>	

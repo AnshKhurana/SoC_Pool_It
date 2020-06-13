@@ -13,7 +13,6 @@
 }
 
 #sidebar{
-    top: 5%;
     position: fixed;
     width: 25%;
     height: 80%;
@@ -30,7 +29,7 @@
     padding-right: 10px;
     border: 1px inset green;
     border-radius: 3px;
-    height: 27%;
+    height: 32%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
 }
 
