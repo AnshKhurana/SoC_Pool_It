@@ -1,17 +1,98 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
 	<meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Creating Service </title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/serviceform.css' %}">
 </head>
 <body>
-	<h1>Creating a {{name}}Service</h1><br><br>
+	<h1 style = "text-align: center; color:green;">Creating a {{name}} Service</h1><hr><br><br>
+	<div class="form">
 	<form method='POST' action="/services/createservice/">
 		{% csrf_token %}
-		{{form.as_p}}
-		<input type='submit' value='create service'>
-	</form>		
+		{{form.non_field_errors}}
+		{% if form.event_type %}
+		<div class="event_type">
+			{{form.event_type.errors}}
+			{{form.event_type.label_tag}}
+			{{form.event_type}}
+		</div>
+		{% endif %}
+		{% if form.location %}
+		<div class="location">
+			{{form.location.errors}}
+			{{form.location.label_tag}}
+			{{form.location}}
+		</div>
+		{% endif %}
+		{% if form.transport %}
+		<div class="transport">
+			{{form.transport.errors}}
+			{{form.transport.label_tag}}
+			{{form.transport}}
+		</div>
+		{% endif %}
+		{% if form.start_point %}
+		<div class="start_point">
+			{{form.start_point.errors}}
+			{{form.start_point.label_tag}}
+			{{form.start_point}}
+		</div>
+		{% endif %}
+		{% if form.end_point %}
+		<div class="end_point">
+			{{form.end_point.errors}}
+			{{form.end_point.label_tag}}
+			{{form.end_point}}
+		</div>
+		{% endif %}
+		<div class="description">
+			{{form.service_desc.errors}}
+			{{form.service_desc.label_tag}}
+			{{form.service_desc}}
+		</div>
+		{% if form.vendor %}
+		<div class="vendor">
+			{{form.vendor.errors}}
+			{{form.vendor.label_tag}}
+			{{form.vendor}}
+		</div>
+		{% endif %}
+		<div class="end_time">
+			{{form.end_time.errors}}
+			{{form.end_time.label_tag}}
+			{{form.end_time}}
+		</div>
+		<input type='submit' value='create service' style="background-color:#4CAF50; color:white; height:30px; width:130px; font-size: 115%;" >
+	</form>	
+	<p class="required"> note: all fields are required</p>	
+	</div>
+
+	<script>
+		const tx = document.getElementsByTagName('textarea');
+		for (let i = 0; i < tx.length; i++) {
+		  tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+		  tx[i].addEventListener("input", OnInput, false);
+		}
+
+		function OnInput() {
+		  this.style.height = 'auto';
+		  this.style.height = (this.scrollHeight) + 'px';
+		}
+
+		 document.getElementById('id_event_type_0').label.style.font-size='140%';
+		 document.getElementById('id_event_type_0').label.style.display='block';
+		 document.getElementById('id_event_type_0').label.style.padding-bottom= '5px';
+		 document.getElementById('id_event_type_0').label.style.padding-left= '10px';
+		
+	</script>
+
 </body>
 </html>
+
+	
+	
+	

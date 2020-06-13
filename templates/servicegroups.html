@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
 	<meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Creating Service </title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/servicegroup.css' %}" >
 </head>
 <body>
-	<h1>Creating a Service</h1><br><br>
+	<div class = "servicegroupsform" >
+	<h1 style = "text-align: center; color:green;">Creating a Service</h1><hr><br><br>
+	<div class="form">
 	{%if error_message%}
 		<h2>{{error_message}}</h2>
 	{%else%}
 		<form action="/services/servicegroups/" method='POST'>
 			{% csrf_token %}
-			{{form.as_p}}
+			{{form.non_field_errors}}
+			<div class="groups" >
+				{{form.groups_list.errors}}
+				{{form.groups_list.label_tag}}
+				{{form.groups_list}}
+			</div>
+			<div class="category" >
+				{{form.category.errors}}
+				{{form.category.label_tag}}
+				{{form.category}}
+			</div>
 			<br>
-		<input type='submit' value='next'>
+		<input type='submit' value='next' style ="background-color:#4CAF50; color: white; height: 30px; width: 80px; font-size: 100%;" >
 		</form>
 	{%endif%}
+	</div>
+	</div>
 </body>
 </html>	

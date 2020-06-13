@@ -1,7 +1,7 @@
 from django import forms
 from main.models import group,Category,FoodService,EventService,ShoppingService,TravelService,OtherService
 from accounts.models import User
-from django.forms.widgets import CheckboxSelectMultiple 
+from django.forms.widgets import CheckboxSelectMultiple,RadioSelect 
 from django.contrib.admin import widgets
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -16,9 +16,9 @@ class groupsform(forms.Form):
 
 	Choices=[('Food','Food'),('Event','Event'),('Shopping','Shopping'),('Travel','Travel'),('Other','Other')]
 	
-	groups_list=forms.ModelMultipleChoiceField(queryset=None,label='Select groups to post the service:',widget=CheckboxSelectMultiple)
+	groups_list=forms.ModelMultipleChoiceField(queryset=None,label='Select groups to post the service:',widget=CheckboxSelectMultiple(attrs={'class':'group_checkbox'}))
 	
-	category=forms.ChoiceField(choices=Choices,label='Choose the Category:')
+	category=forms.ChoiceField(choices=Choices,label='Choose a Category:' ,widget=RadioSelect)
 
 
 
@@ -76,6 +76,7 @@ class EventServiceForm(forms.ModelForm):
 		model=EventService
 		fields=['event_type','location','service_desc','end_time']
 		widgets={
+			'event_type': forms.RadioSelect(attrs={'class':'events_type'}),
 			'service_desc':forms.Textarea(attrs={'placeholder':'Describe about the service'}),
 			'location':forms.Textarea(attrs={'placeholder':'Add the location of Event'}),
 			'end_time':forms.DateTimeInput(attrs={'placeholder':'eg.; 2020-06-24 14:30 '})
@@ -85,6 +86,7 @@ class EventServiceForm(forms.ModelForm):
 			'service_desc':'Description'
 			
 		}
+
 
 	def clean_end_time(self): 
 		data=self.cleaned_data['end_time']
@@ -98,6 +100,7 @@ class TravelServiceForm(forms.ModelForm):
 		model=TravelService
 		fields=['transport','start_point','end_point','service_desc','end_time']
 		widgets={
+			'transport': forms.RadioSelect(),
 			'service_desc':forms.Textarea(attrs={'placeholder':'Describe about the service'}),
 			'start_point':forms.Textarea(attrs={'placeholder':'Starting point address'}),
 			'end_point':forms.Textarea(attrs={'placeholder':'Ending point address'}),
@@ -109,6 +112,10 @@ class TravelServiceForm(forms.ModelForm):
 			'start_point':'Pick up location',
 			'end_point':'Drop location'
 		}
+
+		initial = {
+			'transport': 'Taxi',
+			}
 
 	def clean_end_time(self): 
 		data=self.cleaned_data['end_time']

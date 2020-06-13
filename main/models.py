@@ -80,7 +80,7 @@ class TravelService(service):
         ('Train', 'Train'),
         ('Flight', 'Flight'),
     ]
-    transport = models.CharField(max_length=10, choices=TRAVEL_CHOICES, null=True)
+    transport = models.CharField(max_length=10, choices=TRAVEL_CHOICES, null=True, default = 'Taxi')
 
     def __str__(self):
         return '%s' % self.transport
@@ -91,7 +91,7 @@ class EventService(service):
         ('Concert', 'Concert'),
     ]
     location = models.CharField(max_length=1000,null=False)
-    event_type = models.CharField(max_length=10, choices=EVENT_CHOICES)
+    event_type = models.CharField(max_length=10, choices=EVENT_CHOICES, default ='Movie')
 
 class OtherService(service):
     pass

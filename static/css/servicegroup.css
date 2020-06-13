@@ -1,0 +1,49 @@
+.form ul li {
+    	list-style:none;
+}
+
+.form {
+	width: 500px;
+	margin-bottom: 30px;
+	margin-left:660px;
+	padding: 20px 20px 20px 20px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+hr {
+	width: 50%;
+	text-align:center;
+}
+.category{
+	border:1px inset #808080 ;
+	border-radius: 3px;
+	padding:20px 20px 20px 20px;
+	margin: 30px 30px 30px 30px;
+	font-size: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+}
+.servicegroupsform {
+	font-family: verdana ;
+	font-size: 150%;
+}
+.groups {
+	border:1px inset #808080 ;
+	border-radius: 3px;
+	padding:20px 20px 20px 20px;
+	margin: 30px 30px 30px 30px;
+	font-size: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+}
+input[type=checkbox] {
+	position: relative;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+}
+input[type=radio] {
+	position: relative;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+}
+	
