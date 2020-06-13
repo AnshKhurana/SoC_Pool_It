@@ -7,7 +7,8 @@
 	margin-bottom: 30px;
 	margin-left:660px;
 	padding: 20px 20px 20px 20px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+	border: 1px solid green;
+	border-radius: 5px;
 }
 
 hr {
@@ -33,6 +34,11 @@ hr {
 	margin: 30px 30px 30px 30px;
 	font-size: 100%;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+.button {
+	padding-left: 30px;
+	margin-bottom:30px;
 }
 input[type=checkbox] {
 	position: relative;

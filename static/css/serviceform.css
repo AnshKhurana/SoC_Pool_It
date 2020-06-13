@@ -23,7 +23,7 @@ hr {
 	text-align:center;
 }
 
-label[for=id_service_desc],  label[for=id_end_time], label[for = id_location], label[for=id_start_point], label[for=id_end_point] {
+.event_type label, label[for=id_service_desc], label[for=id_end_time], label[for = id_location], label[for=id_start_point], label[for=id_end_point] {
 	font-size: 140%;
 	display: block;
 	padding-bottom: 5px;
@@ -39,6 +39,14 @@ input[type=text] {
   background-color: white;
   font-size: 16px;
 }
+
+input[type=radio] {
+	position: relative;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+}
+
 .required {
 	color: red;
 	font-style: italic;

@@ -52,7 +52,14 @@
         </nav>
         <br>
         <div class="container"> 
-        <h2>Hello, {{user.username}}</h2>
+          <h2 style="display: inline-block;">Hello, {{user.username}}</h2>
+        </div>
+        <div id="message">
+            {% if messages %}
+              {% for message in messages %}
+               <p  style="color:green; font-size: 150%; border: 1px solid green; border-radius:3px; padding:5px 3px 5px 3px; width: 500px; text-align: center; margin-left:500px; ">{{message}}</p>
+              {% endfor %}
+            {% endif %}
         </div>
         <br>
         <div class="container">
@@ -76,9 +83,6 @@
             </table>
         </div>
         <div class="container">
-        {% for message in messages %}
-        <p>{{message}}</p>
-        {% endfor %}
          <form action="group/join_group" method="POST" class="form-inline">
             {% csrf_token %}
             <input name="code" type="text" placeholder="Invitation Code">
@@ -92,9 +96,11 @@
     <script>
     if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
+
+    setTimeout(function(){
+      document.getElementById("message").innerHTML = '';
+      }, 3000);
     }
-    </script>
-    <script
   src="https://code.jquery.com/jquery-3.5.1.js"
   integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
   crossorigin="anonymous"></script>

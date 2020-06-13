@@ -29,6 +29,7 @@ function ServiceFiltering(){
 						if(reply[item].is_member===true){
 							select.innerHTML += "<li > <div>" +
 							"<h3>" + reply[item].service_type+" Service</h3>" +
+							"<span><h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: red;'\"></h4></span>" +
  							"<h2>" + reply[item].vendor + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p><span>Start Time:</span> " + reply[item].start_time + "<br> <span>End Time:</span>  " + reply[item].end_time + "</p> </h4>" +
@@ -40,7 +41,7 @@ function ServiceFiltering(){
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li> <div>" +
 							"<h3>" + reply[item].service_type+" Service</h3>" +
-							"<h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: Red;'\"></h4>" +
+							"<span><h4 id=\"msg "+ reply[item].service_id + "\"></h4></span>" +
 							"<h2>" + reply[item].vendor + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p><span>Start Time:</span> " + reply[item].start_time + "<br> <span>End Time:</span>  " + reply[item].end_time + "</p> </h4>" +
@@ -54,6 +55,7 @@ function ServiceFiltering(){
 						if(reply[item].is_member===true){
 							select.innerHTML += "<li><div>" +
 							"<h3>Event Service</h3>" +
+							"<span><h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: red;'\"></h4></span>" +
  							"<h2>" + reply[item].event_type + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4>at " + reply[item].location + "</h4>" +
@@ -66,7 +68,7 @@ function ServiceFiltering(){
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li><div>" +
 							"<h3>Event Service</h3>" +
-							"<h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: Red;'\"></h4>" +
+							"<span><h4 id=\"msg "+ reply[item].service_id + "\"></h4></span>" +
 							"<h2>" + reply[item].event_type + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4>at " + reply[item].location + "</h4>" +
@@ -81,6 +83,7 @@ function ServiceFiltering(){
 						if(reply[item].is_member===true){
 							select.innerHTML += "<li><div>" +
 							"<h3>Travel Service</h3>" +
+							"<span><h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: red;'\"></h4></span>" +
  							"<h4>via " + reply[item].transport + "</h4>" +
 							"<h4><p><span>From:</span> " + reply[item].start_point + "<br> <span>To:</span> " + reply[item].end_point + "</p></h4>" +
 							"<p> by " + reply[item].initiator + "</p>" +
@@ -93,7 +96,7 @@ function ServiceFiltering(){
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li><div>" +
 							"<h3>Travel Service</h3>" +
-							"<h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: Red;'\"></h4>" +
+							"<span><h4 id=\"msg "+ reply[item].service_id + "\"></h4></span>" +
 							"<h4>" + reply[item].transport + "</h4>" +
 							"<h4><p><span>From:</span> " + reply[item].start_point + "<br> <span>To:</span> " + reply[item].end_point + "</p></h4>" +
 							"<p> by " + reply[item].initiator + "</p>" +
@@ -108,6 +111,7 @@ function ServiceFiltering(){
 						if(reply[item].is_member===true){
 							select.innerHTML += "<li> <div>" +
 							"<h3>Other Service</h3>" +
+							"<span><h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: red;'\"></h4></span>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p><span>Start Time:</span> " + reply[item].start_time + "<br> <span>End Time:</span>  " + reply[item].end_time + "</p> </h4>" +
 							"<h4 style = \"display: inline-block;\"> " + reply[item].service_desc + "</h4>" +
@@ -118,7 +122,7 @@ function ServiceFiltering(){
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li> <div>" +
 							"<h3>Other Service</h3>" +
-							"<h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: Red;'\"></h4>" +
+							"<span><h4 id=\"msg "+ reply[item].service_id + "\"></h4></span>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p><span>Start Time:</span> " + reply[item].start_time + "<br> <span>End Time:</span>  " + reply[item].end_time + "</p> </h4>" +
 							"<h4 style = \"display: inline-block;\"> " + reply[item].service_desc + "</h4>" +
@@ -144,7 +148,10 @@ function join_service(service_id){
 	var btn=document.getElementById(service_id);
 
 	if(btn.innerHTML==='Already a member'){
-		alert("You are already a member of this service");
+		document.getElementById("msg " +service_id).innerHTML = "You are already a member of this service";
+		setTimeout(function(){
+			document.getElementById("msg " + service_id).innerHTML = '';
+			}, 3000);
 	}
 
 	if(btn.innerHTML==='Join Service'){

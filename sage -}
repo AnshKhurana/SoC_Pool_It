@@ -1,0 +1,141 @@
+[33m8e0e3b6[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge branch 'master' of https://github.com/AnshKhurana/SoC_Pool_It
+[33m45d3233[m styled forms
+[33mc56b85b[m styling and some HTML changes
+[33m75f475c[m styling and some HTML changes
+[33m9f26f3e[m styling and some html changes
+[33m28066aa[m styling and some html changes
+[33m090037f[m fixed reloading of home page
+[33m404b162[m minor bug fix
+[33m4d5d1b3[m joining a service success msg added
+[33mb1e1194[m Merge branch 'master' of https://github.com/AnshKhurana/SoC_Pool_It
+[33mc2a04ee[m changed to be able to filter multi cat
+[33m4abccd2[m a minor change
+[33mf87ef81[m made small changes in js
+[33md0fac68[m all filters are working
+[33m268a4f9[m modified api view
+[33me1e74a0[m minor fix
+[33m24655e0[m categories fixed
+[33m3725979[m fixed categories
+[33mbb15061[m debugging
+[33m1a2453c[m debugging
+[33me6dd3f4[m added a method
+[33mffc6017[m debugged services.js
+[33m416a1cb[m minor fixes
+[33ma1ecf23[m some fixes in service.js
+[33mee6f338[m debugging js
+[33m160290c[m some debugging
+[33m7d2f923[m did collectstatic
+[33mbfd2cb3[m a small change
+[33m0591a74[m some minor changes
+[33mf1b6d8b[m debugging
+[33med675a8[m debugging
+[33me3c6ce9[m js changes
+[33m3dc692b[m minor changes
+[33m0a9314e[m gitignored migrations
+[33meec56a9[m minor changes
+[33m979ec5f[m added axios module
+[33mfd05bb6[m changed some html
+[33m363615a[m minor changes in js
+[33m1b9fa28[m some uncommited changes
+[33m1e105f4[m added some js to pass filter selected
+[33m46d6875[m JS for further work
+[33mf6e19b6[m merged branch chat
+[33m62c41c1[m[33m ([m[1;31morigin/chat[m[33m)[m removed extra file
+[33m10f1e14[m added notifications
+[33m68bfa52[m modified service.js
+[33m122ef00[m modified api add added some js
+[33m9e9a4af[m modified api add added some js
+[33m181531c[m modified serializers
+[33mc832bc5[m minor change
+[33md7b8b2e[m added link to home page
+[33mdc4417b[m build API and gitignored migrations
+[33ma009ad0[m added API and gitignored migrations
+[33m89bbb2d[m fixed a few bugs
+[33m7a899bf[m fixed a few bugs
+[33m391b87c[m fixed a minor bug
+[33m98a85e7[m fixed a bug
+[33m150c278[m few changes to UI
+[33mbdd6ba7[m removed some extra code
+[33mafae585[m updated main.js
+[33mf76b02d[m removed some extra code
+[33m821e8b4[m some changes to the UI
+[33m6a23d6d[m minor changes to template
+[33mf91ad07[m few more changes
+[33me314ff1[m few changes
+[33m7cd65d1[m fixed ajax
+[33maac54ed[m JS changes
+[33ma5bb301[m minor changes in js
+[33m68808a7[m added extra fields
+[33md1db5fb[m added serializers
+[33m0d04434[m Add files via upload
+[33mda51dd3[m Add files via upload
+[33m70544cf[m Add files via upload
+[33m826a6a5[m changes
+[33mcabbef4[m few changes
+[33m3275580[m added search filter and fixed a small issue
+[33m80fa18e[m completed services page
+[33mf16db52[m almost completed service page
+[33m09b8f2e[m removed some extra code
+[33m5b4a0f9[m Impoved templates
+[33m8366cce[m built APi but have error in groups
+[33mfbfba57[m Fixed timezone
+[33m2876c67[m used model from main
+[33md8ac09e[m some basic implementation of service page
+[33m7e8a839[m added restrictions
+[33m943d1c2[m checkpoints removed
+[33ma664734[m service_id added
+[33mf76cf76[m dummy code
+[33m83e83dd[m small fix
+[33meaf12b3[m minor fix
+[33md351424[m merged services with master
+[33md53cafe[m fixed one bug
+[33ma7f699b[m modified ../.gitignore
+[33mf03ce8a[m modified .gitignore
+[33mbaba127[m added error message for form 1
+[33m1570e52[m minor fix
+[33m4eaef64[m fixed some minor issues
+[33m5ac4988[m added validation error and changed input format fot end_time
+[33mb92c89b[m Merge pull request #4 from AnshKhurana/group
+[33mc11753a[m uncommented remaining models
+[33m879f76a[m Changed first form into django form
+[33mfa84354[m first form
+[33mab2eabe[m resolved some issues
+[33mca304df[m created view to join group
+[33m36b802a[m added joined groups name in the home page
+[33mde711f3[m resolved some issues
+[33m36d497d[m added migrations and implememted group model
+[33m1e7d1f0[m updated group creation
+[33mb0dfd5d[m added group creation and some functions
+[33m103ad11[m small mistake in settings.py fixed
+[33m74b0315[m  created service app
+[33m56136a4[m created form and urls in groups app
+[33m60dadf2[m rearranged models
+[33m0b5e404[m some changes in group class
+[33mcfa2201[m merged models into master
+[33ma110f5a[m added .gitignore
+[33m4e19e99[m Merge pull request #1 from AnshKhurana/user
+[33m6964df0[m tried to add mail function
+[33mbf681d6[m added some files in gitignore
+[33mb324d99[m introduced a page to change password and update details
+[33m0819acd[m updated models
+[33m8e0240e[m u
+[33m95ea838[m added error messages
+[33m5d338ba[m added a sample home page
+[33mb886356[m added a user model
+[33m0a22f3f[m created a gitignore file
+[33m29e3035[m a
+[33m4aaff13[m changed some User settings
+[33ma58a185[m created login, register, forgot pages and view along with logout view
+[33ma2b56f2[m added loginpage template
+[33m4d34731[m login page
+[33m8cfa268[m updating models
+[33m84318b4[m added user model
+[33m0d66bd9[m a
+[33m29665fd[m introduced some models
+[33mce2740b[m hm
+[33ma97649d[m created apps
+[33m6d2ccf5[m starting the project
+[33mfbb2865[m creating a project, previous one was older verion
+[33me2c8eb7[m installing django
+[33m8dc8d45[m postgres_setup
+[33m5e46c23[m Initial commit
