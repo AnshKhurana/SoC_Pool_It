@@ -60,12 +60,16 @@
             <thead class="thead-dark">
                 <tr>
                     <th>Group name</th>
+                    <th>Admin</th>
+                    <th>Description</th>
                     <th>Group hash</th>
                 </tr>
             </thead>
         {% for group in user.joined_groups.all %}
                 <tr>
                     <td>{{group}}</td>
+                    <td>{{group.admin}}</td>
+                    <td>{{group.description}}</td>
                     <td>{{group.hash}}</td>
                 </tr> 
         {% endfor %}
