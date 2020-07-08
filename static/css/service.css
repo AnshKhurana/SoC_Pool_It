@@ -5,7 +5,7 @@
     text-align: center;
     margin-left:500px;
     margin-top: 20px;
-    border: 1px inset green;
+    
 }
 
 #topbar:hover {
@@ -59,11 +59,10 @@
 
 
 #myInput{
-    margin-top: 0.5%;
-    margin-bottom: 5px;
-    width: 80%;
-    height: 75%;
-    border: none;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 100%;
+    border: 1px inset green;
     text-align: center;
     font-size: 1.5em;
 }
@@ -90,7 +89,7 @@ li{
 }
 
 li:hover {
-    border: 1px solid green;
+    box-shadow: 0 4px 8px 0 rgba(0, 80, 0, 0.3), 0 6px 20px 0 rgba(0, 80, 0, 0.30);
 }
 
 
@@ -145,4 +144,21 @@ body {
     height:30px;
     width: 120px;
 
+}
+
+.msg {
+    color:red;
+    text-align: center;
+}
+
+.create_service {
+    padding-left: 25px;
+}
+
+.create_service button{
+    background-color: #4CAF50;
+    color: white;
+    height:40px;
+    width: 200px;
+    font-size: 120%;
 }

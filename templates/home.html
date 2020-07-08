@@ -81,7 +81,9 @@
                 </tr> 
         {% endfor %}
             </table>
+            <br><br>
         </div>
+        <div class="invitation" style="margin-left: 50px;">
          <form action="group/join_group" method="POST" class="form-inline">
             {% csrf_token %}
             <input name="code" type="text" placeholder="Invitation Code">
@@ -89,6 +91,7 @@
                 Join
             </button>
         </form>
+      </div>
     </div>
 
     {% endif %}
@@ -96,6 +99,9 @@
     if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
     }
+    setTimeout(function(){
+      document.getElementById("message").innerHTML = '';
+      }, 3000);
     </script>
     <script
   src="https://code.jquery.com/jquery-3.5.1.js"

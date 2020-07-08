@@ -29,19 +29,19 @@ function ServiceFiltering(){
 						if(reply[item].is_member===true){
 							select.innerHTML += "<li > <div>" +
 							"<h3>" + reply[item].service_type+" Service</h3>" +
-							"<span><h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: red;'\"></h4></span>" +
+							"<h4 class=\"msg\" id=\"msg "+ reply[item].service_id + "\" ></h4>" +
  							"<h2>" + reply[item].vendor + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p><span>Start Time:</span> " + reply[item].start_time + "<br> <span>End Time:</span>  " + reply[item].end_time + "</p> </h4>" +
 							"<h4 style = \"display: inline-block;\"> " + reply[item].service_desc + "</h4>" +
-							"<button >Already a member</button>" +
+							"<button onclick=\"join_service(" + "'" + reply[item].service_id + "'" + ")\" id=\"" + reply[item].service_id + "\">Already a member</button>" +
 							" </div> </li>";
 						}
 
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li> <div>" +
 							"<h3>" + reply[item].service_type+" Service</h3>" +
-							"<span><h4 id=\"msg "+ reply[item].service_id + "\"></h4></span>" +
+							"<h4 class=\"msg\" id=\"msg "+ reply[item].service_id + "\" ></h4>" +
 							"<h2>" + reply[item].vendor + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p><span>Start Time:</span> " + reply[item].start_time + "<br> <span>End Time:</span>  " + reply[item].end_time + "</p> </h4>" +
@@ -55,20 +55,20 @@ function ServiceFiltering(){
 						if(reply[item].is_member===true){
 							select.innerHTML += "<li><div>" +
 							"<h3>Event Service</h3>" +
-							"<span><h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: red;'\"></h4></span>" +
+							"<h4 class=\"msg\" id=\"msg "+ reply[item].service_id + "\" ></h4>" +
  							"<h2>" + reply[item].event_type + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4>at " + reply[item].location + "</h4>" +
 							"<h4><p><span>Start Time:</span> " + reply[item].start_time + "<br> <span>End Time:</span>  " + reply[item].end_time + "</p> </h4>" +
 							"<h4 style = \"display: inline-block;\"> " + reply[item].service_desc + "</h4>" +
-							"<button >Already a member</button>" +
+							"<button onclick=\"join_service(" + "'" + reply[item].service_id + "'" + ")\" id=\"" + reply[item].service_id + "\">Already a member</button>" +
 							"</div> </li>";
 						}
 
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li><div>" +
 							"<h3>Event Service</h3>" +
-							"<span><h4 id=\"msg "+ reply[item].service_id + "\"></h4></span>" +
+							"<h4 class=\"msg\" id=\"msg "+ reply[item].service_id + "\" ></h4>" +
 							"<h2>" + reply[item].event_type + "</h2>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4>at " + reply[item].location + "</h4>" +
@@ -83,20 +83,20 @@ function ServiceFiltering(){
 						if(reply[item].is_member===true){
 							select.innerHTML += "<li><div>" +
 							"<h3>Travel Service</h3>" +
-							"<span><h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: red;'\"></h4></span>" +
+							"<h4 class=\"msg\" id=\"msg "+ reply[item].service_id + "\" ></h4>" +
  							"<h4>via " + reply[item].transport + "</h4>" +
 							"<h4><p><span>From:</span> " + reply[item].start_point + "<br> <span>To:</span> " + reply[item].end_point + "</p></h4>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p><span>Start Time:</span> " + reply[item].start_time + "<br> <span>End Time:</span>  " + reply[item].end_time + "</p> </h4>" +
 							"<h4 style = \"display: inline-block;\"> " + reply[item].service_desc + "</h4>" +
-							"<button >Already a member</button>" +
+							"<button onclick=\"join_service(" + "'" + reply[item].service_id + "'" + ")\" id=\"" + reply[item].service_id + "\">Already a member</button>" +
 							"</div> </li>";
 						}
 
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li><div>" +
 							"<h3>Travel Service</h3>" +
-							"<span><h4 id=\"msg "+ reply[item].service_id + "\"></h4></span>" +
+							"<h4 class=\"msg\" id=\"msg "+ reply[item].service_id + "\" ></h4>" +
 							"<h4>" + reply[item].transport + "</h4>" +
 							"<h4><p><span>From:</span> " + reply[item].start_point + "<br> <span>To:</span> " + reply[item].end_point + "</p></h4>" +
 							"<p> by " + reply[item].initiator + "</p>" +
@@ -111,18 +111,18 @@ function ServiceFiltering(){
 						if(reply[item].is_member===true){
 							select.innerHTML += "<li> <div>" +
 							"<h3>Other Service</h3>" +
-							"<span><h4 id=\"msg "+ reply[item].service_id + "\" style=\"'color: red;'\"></h4></span>" +
+							"<h4 class=\"msg\" id=\"msg "+ reply[item].service_id + "\" ></h4>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p><span>Start Time:</span> " + reply[item].start_time + "<br> <span>End Time:</span>  " + reply[item].end_time + "</p> </h4>" +
 							"<h4 style = \"display: inline-block;\"> " + reply[item].service_desc + "</h4>" +
-							"<button >Already a member</button>" +
+							"<button onclick=\"join_service(" + "'" + reply[item].service_id + "'" + ")\" id=\"" + reply[item].service_id + "\">Already a member</button>" +
 							" </div> </li>";
 						}
 
 						else if(reply[item].is_member===false){
 							select.innerHTML += "<li> <div>" +
 							"<h3>Other Service</h3>" +
-							"<span><h4 id=\"msg "+ reply[item].service_id + "\"></h4></span>" +
+							"<h4 class=\"msg\" id=\"msg "+ reply[item].service_id + "\" ></h4>" +
 							"<p> by " + reply[item].initiator + "</p>" +
 							"<h4><p><span>Start Time:</span> " + reply[item].start_time + "<br> <span>End Time:</span>  " + reply[item].end_time + "</p> </h4>" +
 							"<h4 style = \"display: inline-block;\"> " + reply[item].service_desc + "</h4>" +

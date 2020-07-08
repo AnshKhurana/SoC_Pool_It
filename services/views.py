@@ -46,7 +46,7 @@ def servicegroups(request):
 			return render(request,'servicegroups.html',{'form':groupsform(user=request.user)})
 		else:
 			return render(request,'servicegroups.html',{'form':groupsform(user=request.user),\
-				'error_message':'You must be present in atleast one group to create the service'})
+				'error_message':'You must be present in atleast one group to create a service'})
 
 
 def createservice(request):

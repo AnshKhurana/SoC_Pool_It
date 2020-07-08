@@ -23,7 +23,7 @@ hr {
 	text-align:center;
 }
 
-.event_type label, label[for=id_service_desc], label[for=id_end_time], label[for = id_location], label[for=id_start_point], label[for=id_end_point] {
+.event_type label, label[for=id_service_desc],label[for=id_vendor], label[for=id_end_time], label[for = id_location], label[for=id_start_point], label[for=id_end_point] {
 	font-size: 140%;
 	display: block;
 	padding-bottom: 5px;
@@ -56,4 +56,5 @@ textarea {
 	border:none;
 	border-bottom: 1px solid black;
 	overflow: hidden;
+	width:80%;
 }
